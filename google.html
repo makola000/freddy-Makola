@@ -1,0 +1,8 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><title>Google Freddy</title>
+<style>body{margin:0;font-family:sans-serif;text-align:center} .head{padding:15px;background:#111;display:flex;justify-content:space-between;color:#fff} .logo{font-size:80px;margin:40px 0} .logo span:nth-child(1){color:#4285F4} .logo span:nth-child(2){color:#EA4335} .logo span:nth-child(3){color:#FBBC05} .logo span:nth-child(4){color:#4285F4} .logo span:nth-child(5){color:#34A853} .logo span:nth-child(6){color:#EA4335}
+input{width:60%;padding:16px;border-radius:25px;border:1px solid #ddd;box-shadow:0 2px 5px #ccc;font-size:16px} iframe{width:100%;height:70vh;border:none;margin-top:20px} a{color:#25D366;text-decoration:none;margin:0 10px}</style></head><body>
+<div class="head"><b>FREDDY MAKOLA</b><div><a href="index.html">🏠</a><a href="whatsapp.html">WhatsApp</a><a href="youtube.html">YouTube</a><a href="wikipedia.html">Wiki</a></div></div>
+<div class="logo"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></div>
+<input id="q" placeholder="Rechercher sur Google..." onkeydown="if(event.key==='Enter')go()"><br><br><button onclick="go()" style="padding:10px 20px;border:none;background:#f8f9fa;border-radius:5px">Recherche Google</button>
+<iframe id="f" src="https://www.google.com/search?igu=1&q=Freddy+Makola"></iframe>
+<script>function go(){let v=document.getElementById('q').value;if(v)document.getElementById('f').src='https://www.google.com/search?igu=1&q='+encodeURIComponent(v)}</script></body></html>
