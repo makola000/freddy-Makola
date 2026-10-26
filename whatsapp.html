@@ -1,18 +1,18 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Freddy WhatsApp Contacts</title><style>body{margin:0;background:#0b141a;color:#fff;font-family:sans-serif;display:flex;height:100vh} .left{width:35%;background:#111b21;border-right:1px solid #222;display:flex;flex-direction:column} .right{flex:1;display:flex;flex-direction:column} .top{background:#202c33;padding:12px;display:flex;justify-content:space-between} .list{flex:1;overflow:auto} .contact{padding:12px;border-bottom:1px solid #222;cursor:pointer;display:flex;gap:10px;align-items:center} .contact:hover{background:#202c33} .avatar{width:40px;height:40px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold} .msgs{flex:1;overflow:auto;padding:12px;background:#0b141a} .msg{padding:10px;border-radius:12px;margin:6px 0;max-width:75%} .me{background:#005c4b;margin-left:auto} .them{background:#202c33} .ai{background:#1a3a4a;border-left:4px solid #25D366} .bar{background:#202c33;padding:10px;display:flex;gap:8px} .bar input{flex:1;padding:14px;border-radius:25px;border:none;background:#2a3942;color:#fff} .btn{background:#25D366;width:46px;height:46px;border-radius:50%;border:none;color:#fff;font-size:20px} .btn2{width:auto;padding:0 14px;border-radius:20px;font-size:14px} </style></head><body>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Freddy WhatsApp Business + Contacts</title><style>body{margin:0;background:#0b141a;color:#fff;font-family:sans-serif;display:flex;height:100vh} .left{width:38%;background:#111b21;border-right:1px solid #222;display:flex;flex-direction:column} .right{flex:1;display:flex;flex-direction:column} .top{background:#202c33;padding:12px;display:flex;justify-content:space-between;align-items:center} .list{flex:1;overflow:auto} .contact{padding:12px;border-bottom:1px solid #222;cursor:pointer;display:flex;gap:10px;align-items:center} .contact:hover,.contact.active{background:#202c33} .avatar{width:40px;height:40px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold} .msgs{flex:1;overflow:auto;padding:12px;background:#0b141a} .msg{padding:10px;border-radius:12px;margin:6px 0;max-width:78%;word-break:break-word} .me{background:#005c4b;margin-left:auto} .them{background:#202c33} .ai{background:#1a3a4a;border-left:4px solid #25D366} .bar{background:#202c33;padding:10px;display:flex;gap:8px} .bar input{flex:1;padding:14px;border-radius:25px;border:none;background:#2a3942;color:#fff} .btn{background:#25D366;width:46px;height:46px;border-radius:50%;border:none;color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center} .btn2{width:auto;padding:6px 12px;border-radius:20px;font-size:12px;background:#2a3942}</style></head><body>
 <div class="left">
 <div class="top"><b style="color:#25D366">Freddy WA</b><a href="index.html" style="color:#25D366;text-decoration:none">🏠</a></div>
 <div style="padding:8px;display:flex;gap:6px;flex-wrap:wrap">
-<button class="btn btn2" onclick="loadPhoneContacts()">📲 Charger contacts tel</button>
+<button class="btn btn2" onclick="loadPhoneContacts()">📲 Contacts tel</button>
 <button class="btn btn2" onclick="addContactManu()">➕ Nouveau</button>
 <button class="btn btn2" id="bAI" onclick="toggleAI()">🤖 IA OFF</button>
 </div>
 <div class="list" id="list"></div>
 </div>
 <div class="right">
-<div class="top"><span id="chatName">Choisis un contact</span><button class="btn btn2" onclick="callCurrent()">📞</button></div>
+<div class="top"><span id="chatName">Choisis un contact</span><div style="display:flex;gap:6px"><button class="btn btn2" onclick="callCurrent()">📞 Appel</button></div></div>
 <div class="msgs" id="box"></div>
 <div class="bar">
-<input id="txt" placeholder="Message..." onkeydown="if(event.key==='Enter')send()">
+<input id="txt" placeholder="Écris un message..." onkeydown="if(event.key==='Enter')send()">
 <button class="btn" onclick="send()">➤</button>
 </div>
 </div>
@@ -21,32 +21,41 @@ let contacts=JSON.parse(localStorage.getItem('freddy_contacts')||'[]');
 let msgs=JSON.parse(localStorage.getItem('freddy_all_msgs')||'{}');
 let current=null, aiMode=false;
 function save(){localStorage.setItem('freddy_contacts',JSON.stringify(contacts));localStorage.setItem('freddy_all_msgs',JSON.stringify(msgs));}
-function renderContacts(){let l=document.getElementById('list');l.innerHTML='';contacts.forEach((c,i)=>{let d=document.createElement('div');d.className='contact';d.innerHTML=`<div class="avatar">${c.name[0]}</div><div><b>${c.name}</b><br><small style="color:#aaa">${c.tel}</small></div>`;d.onclick=()=>openChat(i);l.appendChild(d)});}
-function openChat(i){current=i;document.getElementById('chatName').textContent=contacts[i].name;renderMsgs();}
-function renderMsgs(){let b=document.getElementById('box');b.innerHTML='';if(current===null)return;let id=contacts[current].tel;let list=msgs[id]||[];list.forEach(m=>{let d=document.createElement('div');d.className='msg '+m.c;d.innerHTML=m.t;b.appendChild(d)});b.scrollTop=b.scrollHeight}
+function renderContacts(){let l=document.getElementById('list');l.innerHTML='';contacts.forEach((c,i)=>{let d=document.createElement('div');d.className='contact'+(current===i?' active':'');d.innerHTML=`<div class="avatar">${c.name[0].toUpperCase()}</div><div><b>${c.name}</b><br><small style="color:#aaa">${c.tel}</small></div>`;d.onclick=()=>openChat(i);l.appendChild(d)});}
+function openChat(i){current=i;document.getElementById('chatName').textContent=contacts[i].name;renderContacts();renderMsgs();}
+function renderMsgs(){let b=document.getElementById('box');b.innerHTML='';if(current===null){b.innerHTML='<div style="text-align:center;color:#aaa;margin-top:50px">👈 Choisis un contact à gauche<br><br>📲 = charger contacts du téléphone<br>➕ = ajouter manuellement</div>';return;}let id=contacts[current].tel;let list=msgs[id]||[];if(list.length==0){b.innerHTML='<div style="text-align:center;color:#aaa;margin-top:30px">Aucun message avec '+contacts[current].name+'<br>Écris en bas pour commencer</div>';return;}list.forEach(m=>{let d=document.createElement('div');d.className='msg '+m.c;d.innerHTML=m.t;b.appendChild(d)});b.scrollTop=b.scrollHeight}
 function send(){
-let t=document.getElementById('txt').value.trim();if(!t||current===null)return alert('Choisis un contact d abord');
+let t=document.getElementById('txt').value.trim();if(!t||current===null)return alert('Choisis un contact d abord à gauche');
 let tel=contacts[current].tel;if(!msgs[tel])msgs[tel]=[];
 msgs[tel].push({t:t+'<br><small>'+new Date().toLocaleTimeString()+'</small>',c:'me'});save();renderMsgs();
 document.getElementById('txt').value='';
 if(aiMode){
-setTimeout(()=>{msgs[tel].push({t:'🤖 Freddy IA: J ai bien reçu "'+t+'". Je réponds à la place de Freddy pour toi.<br><small>'+new Date().toLocaleTimeString()+'</small>',c:'ai'});save();renderMsgs();},600);
+setTimeout(()=>{msgs[tel].push({t:'🤖 Freddy IA: "'+t+'" bien reçu. Je réponds à ta place.<br><small>'+new Date().toLocaleTimeString()+'</small>',c:'ai'});save();renderMsgs();},600);
 }else{
-// ENVOI VRAI VERS WHATSAPP DU CONTACT
 let url='https://wa.me/'+tel.replace(/\D/g,'')+'?text='+encodeURIComponent(t);
 window.open(url,'_blank');
 }
 }
 async function loadPhoneContacts(){
 try{
-if(!('contacts' in navigator && 'ContactsManager' in window))return alert('Ton navigateur ne permet pas de lire les contacts. Sur Android, ouvre ce site avec Chrome et autorise. Sinon ajoute manuellement avec + Nouveau');
+if(!('contacts' in navigator && 'ContactsManager' in window)){alert('Ton Chrome ne supporte pas. Utilise ➕ Nouveau pour ajouter manuellement. Sur Android ouvre avec Chrome à jour.');return;}
 let props=['name','tel'];let c=await navigator.contacts.select(props,{multiple:true});
 c.forEach(p=>{if(p.tel&&p.tel.length>0){contacts.push({name:p.name[0]||'Sans nom',tel:p.tel[0].replace(/\D/g,'')})}});
 save();renderContacts();alert(c.length+' contacts ajoutés !');
-}catch(e){alert('Erreur contacts: '+e+' - Utilise le bouton + Nouveau')}
+}catch(e){alert('Autorisation refusée ou erreur. Utilise ➕ Nouveau')}
 }
-function addContactManu(){let n=prompt('Nom du contact:');let t=prompt('Numéro avec 243 ex: 243812345678');if(n&&t){contacts.push({name:n,tel:t.replace(/\D/g,'')});save();renderContacts();}}
-function toggleAI(){aiMode=!aiMode;document.getElementById('bAI').textContent=aiMode?'🤖 IA ON':'🤖 IA OFF';document.getElementById('bAI').style.background=aiMode?'#25D366':'#2a3942';}
-function callCurrent(){if(current===null)return alert('Choisis un contact');window.open('tel:'+contacts[current].tel)}
-renderContacts();
+function addContactManu(){let n=prompt('Nom du contact:');if(!n)return;let t=prompt('Numéro avec 243 ex: 243973000000');if(!t)return;contacts.push({name:n,tel:t.replace(/\D/g,'')});save();renderContacts();}
+function toggleAI(){aiMode=!aiMode;let b=document.getElementById('bAI');b.textContent=aiMode?'🤖 IA ON':'🤖 IA OFF';b.style.background=aiMode?'#25D366':'#2a3942';}
+function callCurrent(){
+if(current===null)return alert('Choisis un contact d abord');
+let tel=contacts[current].tel.replace(/\D/g,'');
+let choix=confirm("Choix d'appel pour "+contacts[current].name+":\n\nOK = Appel WhatsApp (gratuit, via WhatsApp)\nANNULER = Appel Normal (avec crédit)");
+if(choix){
+window.open('https://wa.me/'+tel,'_blank');
+setTimeout(()=>{alert("WhatsApp s'est ouvert.\nClique maintenant sur 📞 en haut dans le vrai WhatsApp pour lancer l'appel vocal gratuit.");},1000);
+}else{
+window.open('tel:'+tel);
+}
+}
+renderContacts();renderMsgs();
 </script></body></html>
