@@ -1,0 +1,5 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><title>YouTube Freddy</title>
+<style>*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif} .top{padding:12px;background:#0f0f0f;color:#fff;display:flex;gap:15px;align-items:center} .top input{flex:1;padding:10px;border-radius:20px;border:1px solid #333;background:#121212;color:#fff} iframe{width:100%;height:90vh;border:none} a{color:#fff;text-decoration:none}</style></head><body>
+<div class="top"><b style="color:red">YouTube</b> Freddy Makola <input id="q" placeholder="Rechercher YouTube..."><button onclick="yt()" style="background:red;color:#fff;border:none;padding:8px 14px;border-radius:20px">🔍</button><a href="index.html">🏠</a><a href="whatsapp.html">WhatsApp</a><a href="google.html">Google</a><a href="wikipedia.html">Wiki</a></div>
+<iframe id="f" src="https://www.youtube.com/embed/jNQXAC9IVRw" allowfullscreen></iframe>
+<script>function yt(){let v=document.getElementById('q').value;if(v)document.getElementById('f').src='https://www.youtube.com/embed?listType=search&list='+encodeURIComponent(v)}</script></body></html>
