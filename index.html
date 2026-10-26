@@ -1,77 +1,78 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width">
-<title>FREDDY APP</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width">
+<title>FREDDY - WhatsApp App</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{display:flex;height:100vh;font-family:sans-serif;background:#111}
-.whatsapp{width:35%;background:#111b21;color:#fff;display:flex;flex-direction:column}
-.wh-head{background:#202c33;padding:12px;display:flex;justify-content:space-between}
-.chats{flex:1;overflow-y:auto}
-.chat{padding:12px;border-bottom:1px solid #222;display:flex;gap:10px}
-.chat:hover{background:#202c33}
-.center{flex:1;background:#0b141a;display:flex;flex-direction:column}
-.msg-area{flex:1;padding:15px;overflow-y:auto}
-.msg{background:#005c4b;padding:8px 12px;border-radius:8px;margin:5px;max-width:70%}
-.input{display:flex;padding:10px;background:#202c33;gap:8px}
-.input input{flex:1;padding:10px;border-radius:20px;border:none;background:#2a3942;color:#fff}
-.right{width:35%;background:#0f0f0f;display:flex;flex-direction:column}
-.yt-search{display:flex;padding:8px;gap:5px;background:#212121}
-.yt-search input{flex:1;padding:8px;border-radius:20px;border:1px solid #444;background:#121212;color:#fff}
-.google{padding:10px;background:#fff}
-.google input{width:100%;padding:12px;border-radius:25px;border:1px solid #ddd;box-shadow:0 1px 3px #ccc}
+*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
+body{background:#0b141a;color:#fff}
+.top{height:65vh;background:#111b21;display:flex;flex-direction:column;border-bottom:3px solid #25D366}
+.header{background:#202c33;padding:12px;display:flex;justify-content:space-between;align-items:center}
+.header b{color:#25D366;font-size:18px}
+.actions button{background:#202c33;border:1px solid #333;color:#fff;padding:6px 10px;border-radius:20px;margin-left:5px}
+.main{display:flex;flex:1;overflow:hidden}
+.contacts{width:35%;border-right:1px solid #222;overflow-y:auto}
+.c{padding:12px;border-bottom:1px solid #1f2c34;display:flex;justify-content:space-between}
+.chat-area{flex:1;display:flex;flex-direction:column;background:url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png')}
+.msgs{flex:1;padding:15px;overflow-y:auto}
+.bubble{background:#005c4b;padding:8px 12px;border-radius:8px;margin:6px 0;width:fit-content;max-width:70%}
+.input{padding:10px;background:#202c33;display:flex;gap:8px;align-items:center}
+.input input{flex:1;padding:12px;border-radius:25px;border:none;background:#2a3942;color:#fff}
+.bottom{height:35vh;display:flex}
+.g-box{width:50%;background:#fff;padding:15px;display:flex;flex-direction:column}
+.g-box input{padding:14px;border-radius:25px;border:1px solid #ddd;box-shadow:0 2px 5px #ccc;color:#000}
+.g-box iframe{flex:1;border:none;margin-top:10px}
+.yt-box{width:50%;background:#0f0f0f;padding:10px;display:flex;flex-direction:column;border-left:3px solid red}
+.yt-box input{padding:10px;border-radius:20px;border:1px solid #444;background:#212121;color:#fff}
 </style>
 </head>
 <body>
 
-<div class="whatsapp">
-<div class="wh-head"><b>WhatsApp</b><span>•••</span></div>
-<div class="chats">
-<div class="chat"><b>💬</b><div><b>Maman</b><br><small>Ok à tout à l'heure</small></div></div>
-<div class="chat"><b>🔥</b><div><b>Client</b><br><small>Produit dispo ?</small></div></div>
-<div class="chat"><b>👤</b><div><b>Freddy</b><br><small>En ligne</small></div></div>
+<div class="top">
+<div class="header">
+<b>WhatsApp - Freddy Makola</b>
+<div class="actions">
+<button onclick="alert('Appel vocal... 📞')">📞 Audio</button>
+<button onclick="alert('Appel vidéo... 🎥')">🎥 Vidéo</button>
+<button onclick="alert('Partage...')">↗️ Partager</button>
 </div>
 </div>
-
-<div class="center">
-<div class="msg-area" id="msgs">
-<div class="msg">Salut ! Ton appli WhatsApp marche ✅ Tape en bas</div>
+<div class="main">
+<div class="contacts">
+<div class="c"><span>👤 Maman<br><small>En ligne</small></span><span>✅</span></div>
+<div class="c"><span>🔥 Client<br><small>Tape...</small></span><span>2</span></div>
+<div class="c"><span>👥 Amis<br><small>Partage dispo</small></span><span>↗️</span></div>
+</div>
+<div class="chat-area">
+<div class="msgs" id="msgs">
+<div class="bubble">Bienvenue sur ton WhatsApp ! 🎉<br>Tu peux écrire, envoyer vocal, appeler.</div>
 </div>
 <div class="input">
-<input id="txt" placeholder="Tape un message">
+<button onclick="alert('Vocal enregistré 🎤')">🎤</button>
+<input id="txt" placeholder="Message...">
 <button onclick="send()" style="background:#25D366;border:none;padding:10px 15px;border-radius:50%">➤</button>
+<button onclick="share()">↗️</button>
+</div>
+</div>
 </div>
 </div>
 
-<div class="right">
-<div class="google">
-<input id="gSearch" placeholder="Rechercher sur Google..." onkeydown="if(event.key==='Enter')googleGo()">
+<div class="bottom">
+<div class="g-box">
+<input id="gQ" placeholder="Rechercher sur Google... (Entrée)" onkeydown="if(event.key==='Enter')gGo()">
+<iframe id="gFrame" src="https://www.google.com/search?igu=1&q=freddy+makola"></iframe>
 </div>
-<div class="yt-search">
-<input id="ytSearch" placeholder="Rechercher YouTube...">
-<button onclick="ytGo()" style="padding:8px 12px;border-radius:20px;background:red;color:#fff;border:none">🔍</button>
+<div class="yt-box">
+<div style="display:flex;gap:5px"><input id="ytQ" placeholder="Rechercher YouTube..." style="flex:1"><button onclick="ytGo()" style="background:red;color:#fff;border:none;padding:8px 12px;border-radius:20px">🔍</button></div>
+<iframe id="ytF" style="flex:1;border:none;margin-top:8px" src="https://www.youtube.com/embed/jNQXAC9IVRw" allowfullscreen></iframe>
 </div>
-<iframe id="ytFrame" width="100%" height="100%" style="flex:1;border:none" src="https://www.youtube.com/embed/jNQXAC9IVRw" allowfullscreen></iframe>
 </div>
 
 <script>
-function send(){
-let v=document.getElementById('txt').value
-if(!v)return
-let d=document.createElement('div');d.className='msg';d.textContent=v
-document.getElementById('msgs').appendChild(d)
-document.getElementById('txt').value=''
-}
-function googleGo(){
-let q=document.getElementById('gSearch').value
-if(q) window.open('https://www.google.com/search?q='+encodeURIComponent(q),'_blank')
-}
-function ytGo(){
-let q=document.getElementById('ytSearch').value
-if(q) document.getElementById('ytFrame').src='https://www.youtube.com/embed?listType=search&list='+encodeURIComponent(q)
-}
+function send(){let v=document.getElementById('txt').value;if(!v)return;let d=document.createElement('div');d.className='bubble';d.textContent=v;document.getElementById('msgs').appendChild(d);document.getElementById('txt').value='';}
+function share(){if(navigator.share){navigator.share({title:'Mon App Freddy',url:location.href})}else{prompt('Copie ce lien pour partager à tes amis:',location.href)}}
+function gGo(){let q=document.getElementById('gQ').value;if(q)document.getElementById('gFrame').src='https://www.google.com/search?igu=1&q='+encodeURIComponent(q)}
+function ytGo(){let q=document.getElementById('ytQ').value;if(q)document.getElementById('ytF').src='https://www.youtube.com/embed?listType=search&list='+encodeURIComponent(q)}
 </script>
 </body>
 </html>
