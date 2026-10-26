@@ -1,52 +1,45 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Freddy WhatsApp</title><style>body{margin:0;background:#0b141a;color:#fff;font-family:sans-serif;display:flex;flex-direction:column;height:100vh} .top{background:#202c33;padding:12px;display:flex;justify-content:space-between;align-items:center} .box{padding:10px;background:#202c33;display:flex;gap:6px} .box input{flex:1;padding:10px;border-radius:8px;border:none;background:#2a3942;color:#fff} .msgs{flex:1;overflow:auto;padding:12px} .msg{background:#005c4b;padding:10px;border-radius:8px;margin:6px 0;max-width:80%;margin-left:auto} .bar{background:#202c33;padding:10px;display:flex;gap:8px;align-items:center} .bar input{flex:1;padding:14px;border-radius:25px;border:none;background:#2a3942;color:#fff} .btn{background:#25D366;width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;color:#fff;font-size:20px} .btn2{background:#2a3942} </style></head><body>
-<div class="top"><b style="color:#25D366">WhatsApp Freddy</b><a href="index.html" style="color:#25D366;text-decoration:none">🏠 Accueil</a></div>
-
-<div class="box">
-<input id="nom" placeholder="Nom du contact">
-<input id="numero" placeholder="Numéro ex: 243812345678">
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Freddy WhatsApp Business + IA</title><style>body{margin:0;background:#0b141a;color:#fff;font-family:sans-serif;display:flex;flex-direction:column;height:100vh} .top{background:#202c33;padding:12px;display:flex;justify-content:space-between} .top b{color:#25D366} .switch{padding:8px;background:#111b21;display:flex;gap:8px;justify-content:center} .switch button{padding:8px 14px;border-radius:20px;border:none;cursor:pointer} .active{background:#25D366;color:#fff} .msgs{flex:1;overflow:auto;padding:12px} .msg{padding:10px 12px;border-radius:12px;margin:6px 0;max-width:80%;word-break:break-word} .me{background:#005c4b;margin-left:auto} .them{background:#202c33} .ai{background:#1a3a4a;border-left:4px solid #25D366} .bar{background:#202c33;padding:10px;display:flex;gap:8px} .bar input{flex:1;padding:14px;border-radius:25px;border:none;background:#2a3942;color:#fff} .btn{background:#25D366;width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:none;color:#fff;font-size:20px}</style></head><body>
+<div class="top"><b>Freddy Business + IA 🤖</b><a href="index.html" style="color:#25D366;text-decoration:none">Accueil</a></div>
+<div class="switch">
+<button id="bClient" class="active" onclick="mode='client';this.classList.add('active');document.getElementById('bAI').classList.remove('active')">💬 Client</button>
+<button id="bAI" onclick="mode='ai';this.classList.add('active');document.getElementById('bClient').classList.remove('active')">🤖 Freddy IA</button>
+<button onclick="call()">📞 Appel</button>
 </div>
-
-<div class="msgs" id="msgs"></div>
-
+<div class="msgs" id="box"></div>
 <div class="bar">
-<button class="btn btn2" onclick="document.getElementById('file').click()">📎</button><input type="file" id="file" hidden onchange="sendFile(this)">
-<button class="btn btn2" id="mic" onclick="voice()">🎤</button>
-<input id="txt" placeholder="Tape ton message..." onkeydown="if(event.key==='Enter')send()">
+<input id="txt" placeholder="Écris ici..." onkeydown="if(event.key==='Enter')send()">
 <button class="btn" onclick="send()">➤</button>
 </div>
-
 <script>
-let msgs=JSON.parse(localStorage.getItem('f_msgs2')||'[]');
-function render(){let b=document.getElementById('msgs');b.innerHTML='';msgs.forEach(m=>{let d=document.createElement('div');d.className='msg';d.innerHTML=m;b.appendChild(d)});b.scrollTop=b.scrollHeight}
+let mode='client';
+let msgs=JSON.parse(localStorage.getItem('freddy_biz')||'[]');
+let aiKnowledge=`Tu es Freddy IA, assistant business de Freddy Makola à Lubumbashi. Tu aides les clients comme un vrai WhatsApp Business. Tu réponds en lingala, swahili ou français selon le client. Tu es poli, rapide, business.`;
+
+function render(){let b=document.getElementById('box');b.innerHTML='';msgs.forEach(m=>{let d=document.createElement('div');d.className='msg '+m.c;d.innerHTML=m.t;b.appendChild(d)});b.scrollTop=b.scrollHeight}
+function add(t,c){msgs.push({t:t,c:c});localStorage.setItem('freddy_biz',JSON.stringify(msgs));render()}
+
 function send(){
-let txt=document.getElementById('txt').value;
-let num=document.getElementById('numero').value.replace(/\D/g,'');
-let nom=document.getElementById('nom').value;
-if(!txt)return alert('Écris un message');
-if(!num)return alert('Mets le numéro de la personne');
-msgs.push(`À ${nom||num}: ${txt} <br><small style="color:#ccc">${new Date().toLocaleTimeString()}</small>`);
-localStorage.setItem('f_msgs2',JSON.stringify(msgs));render();
-// ENVOI VRAI VERS WHATSAPP OFFICIEL
-let url=`https://wa.me/${num}?text=${encodeURIComponent(txt)}`;
-window.open(url,'_blank');
-document.getElementById('txt').value='';
+let i=document.getElementById('txt');let v=i.value.trim();if(!v)return;
+add(v+'<br><small>'+new Date().toLocaleTimeString()+'</small>','me');
+i.value='';
+if(mode==='ai'){
+setTimeout(()=>{
+let rep=getAIReply(v);
+add('🤖 Freddy IA: '+rep+'<br><small>'+new Date().toLocaleTimeString()+'</small>','ai');
+},800);
 }
-function sendFile(i){alert('Pour envoyer vidéo/image à une vraie personne, envoie d abord le message puis ajoute la pièce jointe dans WhatsApp qui va s ouvrir');}
-let rec,isRec=false,ch=[];
-function voice(){
-let b=document.getElementById('mic');
-if(!isRec){
-navigator.mediaDevices.getUserMedia({audio:true}).then(s=>{
-rec=new MediaRecorder(s);ch=[];rec.ondataavailable=e=>ch.push(e.data);
-rec.onstop=()=>{
-let blob=new Blob(ch,{type:'audio/webm'});
-let num=document.getElementById('numero').value.replace(/\D/g,'');
-if(!num)return alert('Mets le numéro d abord');
-let url=`https://wa.me/${num}?text=${encodeURIComponent('🎤 Note vocale envoyée depuis Freddy WhatsApp')}`;
-window.open(url,'_blank');
-msgs.push(`🎤 Note vocale envoyée à ${num}`);localStorage.setItem('f_msgs2',JSON.stringify(msgs));render();
-};rec.start();isRec=true;b.textContent='⏹️';b.style.background='red'})
-}else{rec.stop();isRec=false;b.textContent='🎤';b.style.background='#2a3942'}
 }
+
+function getAIReply(q){
+q=q.toLowerCase();
+if(q.includes('bonjour')||q.includes('salut')||q.includes('mbote'))return 'Mbote ! Bienvenue chez Freddy Business. Comment puis-je vous aider aujourd’hui ?';
+if(q.includes('prix')||q.includes('combien'))return 'Pour les prix, dis-moi quel service tu veux et je te fais un devis rapide.';
+if(q.includes('adresse')||q.includes('ou es tu')||q.includes('lubumbashi'))return 'Nous sommes à Lubumbashi, Katanga. On peut livrer ou vous recevoir sur RDV.';
+if(q.includes('whatsapp')||q.includes('numero'))return 'Tu peux me joindre ici même, ou sur WhatsApp direct au +243... (ajoute ton numéro ici)';
+if(q.includes('merci'))return 'Merci beaucoup ! N’hésite pas si tu as besoin.';
+return 'Merci pour ton message : "'+q+'". Je suis Freddy IA, je réponds comme Meta AI. Explique-moi ton besoin business et je t’aide tout de suite. (Tu peux aussi passer en mode Client pour envoyer au vrai WhatsApp)';
+}
+function call(){let n=prompt('Numéro à appeler ? ex: 243812345678');if(n)window.open('tel:'+n)}
 render();
+if(msgs.length==0){add('👋 Bienvenue sur WhatsApp Freddy Business !<br>Mode Client = tu parles à un humain<br>Mode Freddy IA = je réponds comme Meta AI ici','them')}
 </script></body></html>
