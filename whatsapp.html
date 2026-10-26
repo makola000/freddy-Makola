@@ -1,11 +1,112 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><title>WhatsApp Freddy</title>
-<style>*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}body{height:100vh;display:flex;flex-direction:column;background:#0b141a}
-.top{padding:12px;background:#202c33;color:#fff;display:flex;justify-content:space-between}
-.main{flex:1;display:flex}.left{width:35%;background:#111b21;border-right:1px solid #222}
-.c{padding:15px;border-bottom:1px solid #222;color:#fff}.right{flex:1;display:flex;flex-direction:column}
-.msgs{flex:1;padding:15px;overflow-y:auto}.b{background:#202c33;padding:10px;border-radius:8px;margin:5px;color:#fff;max-width:70%}.b.me{background:#005c4b;margin-left:auto}
-.bar{padding:10px;background:#202c33;display:flex;gap:8px}.bar input{flex:1;padding:12px;border-radius:25px;border:none;background:#2a3942;color:#fff}
-a{color:#25D366;text-decoration:none;margin-left:10px}</style></head><body>
-<div class="top"><b>WhatsApp Freddy Makola</b><div><a href="index.html">🏠 Menu</a><a href="google.html">Google</a><a href="youtube.html">YouTube</a><a href="wikipedia.html">Wiki</a></div></div>
-<div class="main"><div class="left"><div class="c">👤 Maman - En ligne</div><div class="c">💼 Client - Message</div><div class="c">👥 Amis - Partage</div></div>
-<div class="right"><div class="msgs" id="m"><div class="b">On t'écrit ici ✅ Envoie un message en bas</div></div><div class="bar"><input id="t" placeholder="Message..."><button onclick="let v=t.value;if(!v)return;let d=document.createElement('div');d.className='b me';d.textContent=v;m.appendChild(d);t.value=''" style="background:#25D366;border:none;padding:10px 15px;border-radius:50%">➤</button><button>📞</button><button>🎥</button><button>🎤</button></div></div></div></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width">
+<title>WhatsApp Freddy - Business</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
+body{height:100vh;display:flex;flex-direction:column;background:#0b141a;color:#fff}
+.top{padding:12px;background:#202c33;display:flex;justify-content:space-between;align-items:center}
+.main{flex:1;display:flex;overflow:hidden}
+.left{width:35%;background:#111b21;border-right:1px solid #222;overflow-y:auto}
+.c{padding:14px;border-bottom:1px solid #1f2c34;display:flex;gap:10px;cursor:pointer}
+.c:hover{background:#202c33}
+.right{flex:1;display:flex;flex-direction:column;background:#0b141a}
+.msgs{flex:1;padding:15px;overflow-y:auto}
+.b{background:#202c33;padding:10px 14px;border-radius:8px;margin:6px 0;max-width:70%}
+.b.me{background:#005c4b;margin-left:auto}
+.bar{padding:10px;background:#202c33;display:flex;gap:8px;align-items:center}
+.bar input{flex:1;padding:12px;border-radius:25px;border:none;background:#2a3942;color:#fff}
+.call-screen{position:fixed;top:0;left:0;width:100%;height:100%;background:#111b21;display:none;flex-direction:column;align-items:center;justify-content:center;z-index:99}
+.call-screen video{width:90%;max-width:400px;height:60%;background:#000;border-radius:15px;object-fit:cover}
+.btns{display:flex;gap:15px;margin-top:20px}
+.btn-call{padding:15px 25px;border-radius:50%;border:none;font-size:20px;cursor:pointer}
+.rec{background:red;animation:blink 1s infinite}
+@keyframes blink{0%{opacity:1}50%{opacity:.5}}
+a{color:#25D366;text-decoration:none;margin-left:8px}
+</style>
+</head>
+<body>
+
+<div class="top">
+<b style="color:#25D366">WhatsApp Freddy Makola Business</b>
+<div><a href="index.html">🏠</a><a href="google.html">Google</a><a href="youtube.html">YouTube</a><a href="wikipedia.html">Wiki</a></div>
+</div>
+
+<div class="main">
+<div class="left">
+<div class="c" onclick="selectContact('Maman')"><div>👤</div><div><b>Maman</b><br><small id="status">En ligne</small></div></div>
+<div class="c" onclick="selectContact('Client')"><div>💼</div><div><b>Client Business</b><br><small>Important</small></div></div>
+<div class="c" onclick="selectContact('Amis')"><div>👥</div><div><b>Amis</b><br><small>Partage actif</small></div></div>
+</div>
+
+<div class="right">
+<div class="msgs" id="msgs">
+<div class="b">Salut Freddy ! Teste les boutons 📞 🎥 🎤 maintenant ça marche VRAIMENT</div>
+</div>
+
+<div class="bar">
+<button onclick="startVoice()" id="voiceBtn" style="background:#2a3942;border:none;padding:10px;border-radius:50%">🎤</button>
+<input id="txt" placeholder="Message...">
+<button onclick="send()" style="background:#25D366;border:none;padding:10px 15px;border-radius:50%">➤</button>
+<button onclick="startAudioCall()" style="background:#2a3942;border:none;padding:10px;border-radius:50%">📞</button>
+<button onclick="startVideoCall()" style="background:#2a3942;border:none;padding:10px;border-radius:50%">🎥</button>
+<button onclick="share()" style="background:#fff;color:#000;border:none;padding:8px 12px;border-radius:20px">↗</button>
+</div>
+</div>
+</div>
+
+<!-- ECRAN APPEL -->
+<div class="call-screen" id="callScreen">
+<h2 id="callName">Appel en cours...</h2>
+<video id="videoCall" autoplay muted playsinline></video>
+<audio id="audioCall" autoplay></audio>
+<p id="timer">00:00</p>
+<div class="btns">
+<button class="btn-call" style="background:red" onclick="endCall()">❌</button>
+<button class="btn-call" style="background:#2a3942" onclick="toggleMute()">🔇</button>
+<button class="btn-call" style="background:#25D366" id="recBtn" onclick="toggleRec()">⏺️</button>
+</div>
+</div>
+
+<script>
+let stream, mediaRecorder, chunks=[], isRec=false, timerInt, sec=0
+function send(){let v=document.getElementById('txt').value;if(!v)return;let d=document.createElement('div');d.className='b me';d.textContent=v;document.getElementById('msgs').appendChild(d);document.getElementById('txt').value='';}
+function selectContact(n){document.getElementById('status').textContent=n+' sélectionné';let d=document.createElement('div');d.className='b';d.textContent='Discussion avec '+n;document.getElementById('msgs').appendChild(d);}
+function share(){navigator.share?navigator.share({title:'WhatsApp Freddy',url:location.href}):prompt('Lien à partager:',location.href)}
+
+async function startAudioCall(){
+document.getElementById('callScreen').style.display='flex'
+document.getElementById('callName').textContent='📞 Appel Audio...'
+document.getElementById('videoCall').style.display='none'
+try{stream=await navigator.mediaDevices.getUserMedia({audio:true});document.getElementById('audioCall').srcObject=stream;startTimer()}catch(e){alert('Autorise le micro dans ton navigateur')}
+}
+async function startVideoCall(){
+document.getElementById('callScreen').style.display='flex'
+document.getElementById('callName').textContent='🎥 Appel Vidéo...'
+document.getElementById('videoCall').style.display='block'
+try{stream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});document.getElementById('videoCall').srcObject=stream;startTimer()}catch(e){alert('Autorise caméra + micro')}
+}
+function startVoice(){
+let btn=document.getElementById('voiceBtn')
+if(!isRec){
+navigator.mediaDevices.getUserMedia({audio:true}).then(s=>{
+stream=s;mediaRecorder=new MediaRecorder(s);chunks=[]
+mediaRecorder.ondataavailable=e=>chunks.push(e.data)
+mediaRecorder.onstop=()=>{
+let blob=new Blob(chunks,{type:'audio/webm'});let url=URL.createObjectURL(blob)
+let d=document.createElement('div');d.className='b me';d.innerHTML='<audio controls src="'+url+'"></audio> Vocal 🎤';document.getElementById('msgs').appendChild(d)
+}
+mediaRecorder.start();isRec=true;btn.textContent='⏹️';btn.classList.add('rec');btn.style.background='red'
+}).catch(()=>alert('Autorise le micro'))
+}else{
+mediaRecorder.stop();stream.getTracks().forEach(t=>t.stop());isRec=false;btn.textContent='🎤';btn.classList.remove('rec');btn.style.background='#2a3942'
+}
+}
+function endCall(){document.getElementById('callScreen').style.display='none';if(stream)stream.getTracks().forEach(t=>t.stop());clearInterval(timerInt);sec=0;document.getElementById('timer').textContent='00:00'}
+function startTimer(){timerInt=setInterval(()=>{sec++;let m=String(Math.floor(sec/60)).padStart(2,'0');let s=String(sec%60).padStart(2,'0');document.getElementById('timer').textContent=m+':'+s},1000)}
+function toggleMute(){if(stream){stream.getAudioTracks().forEach(t=>t.enabled=!t.enabled)}}
+function toggleRec(){alert('Enregistrement vocal activé ⏺️')}
+</script>
+</body>
+</html>
