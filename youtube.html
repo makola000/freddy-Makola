@@ -1,5 +1,9 @@
 <!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><title>YouTube Freddy</title>
-<style>*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif} .top{padding:12px;background:#0f0f0f;color:#fff;display:flex;gap:15px;align-items:center} .top input{flex:1;padding:10px;border-radius:20px;border:1px solid #333;background:#121212;color:#fff} iframe{width:100%;height:90vh;border:none} a{color:#fff;text-decoration:none}</style></head><body>
-<div class="top"><b style="color:red">YouTube</b> Freddy Makola <input id="q" placeholder="Rechercher YouTube..."><button onclick="yt()" style="background:red;color:#fff;border:none;padding:8px 14px;border-radius:20px">🔍</button><a href="index.html">🏠</a><a href="whatsapp.html">WhatsApp</a><a href="google.html">Google</a><a href="wikipedia.html">Wiki</a></div>
-<iframe id="f" src="https://www.youtube.com/embed/jNQXAC9IVRw" allowfullscreen></iframe>
-<script>function yt(){let v=document.getElementById('q').value;if(v)document.getElementById('f').src='https://www.youtube.com/embed?listType=search&list='+encodeURIComponent(v)}</script></body></html>
+<style>*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}body{background:#0f0f0f;color:#fff} .top{padding:12px;background:#212121;display:flex;gap:10px;align-items:center} input{flex:1;padding:12px;border-radius:20px;border:1px solid #333;background:#121212;color:#fff} .videos{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:15px;padding:15px} .v{background:#212121;border-radius:12px;overflow:hidden;cursor:pointer} .v img{width:100%} .v p{padding:10px} a{color:#fff;text-decoration:none;margin-left:10px}</style></head><body>
+<div class="top"><b style="color:red">▶ YouTube</b> Freddy <input id="q" placeholder="Rechercher et appuyer Entrée..."><button onclick="search()" style="background:red;color:#fff;border:none;padding:10px 15px;border-radius:20px">Chercher sur YouTube</button><a href="index.html">🏠 Menu</a></div>
+<div class="videos" id="list">
+<div class="v" onclick="window.open('https://www.youtube.com/results?search_query=musique','_blank')"><img src="https://i.ytimg.com/vi/jNQXAC9IVRw/hqdefault.jpg"><p>Musique - Clique pour ouvrir sur YouTube</p></div>
+<div class="v" onclick="window.open('https://www.youtube.com/results?search_query=freddy+makola','_blank')"><img src="https://i.ytimg.com/vi/jNQXAC9IVRw/hqdefault.jpg"><p>Freddy Makola</p></div>
+</div>
+<script>function search(){let q=document.getElementById('q').value;if(q)window.open('https://www.youtube.com/results?search_query='+encodeURIComponent(q),'_blank')}</script>
+</body></html>
