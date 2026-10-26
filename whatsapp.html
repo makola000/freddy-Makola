@@ -2,111 +2,193 @@
 <html>
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width">
-<title>WhatsApp Freddy - Business</title>
+<title>WhatsApp Freddy - Pro</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
 body{height:100vh;display:flex;flex-direction:column;background:#0b141a;color:#fff}
 .top{padding:12px;background:#202c33;display:flex;justify-content:space-between;align-items:center}
 .main{flex:1;display:flex;overflow:hidden}
-.left{width:35%;background:#111b21;border-right:1px solid #222;overflow-y:auto}
-.c{padding:14px;border-bottom:1px solid #1f2c34;display:flex;gap:10px;cursor:pointer}
-.c:hover{background:#202c33}
-.right{flex:1;display:flex;flex-direction:column;background:#0b141a}
-.msgs{flex:1;padding:15px;overflow-y:auto}
-.b{background:#202c33;padding:10px 14px;border-radius:8px;margin:6px 0;max-width:70%}
+.left{width:40%;background:#111b21;border-right:1px solid #222;display:flex;flex-direction:column}
+.left-top{padding:10px;display:flex;gap:5px}
+.left-top input{flex:1;padding:10px;border-radius:20px;border:none;background:#2a3942;color:#fff}
+.contacts{flex:1;overflow-y:auto}
+.c{padding:12px;border-bottom:1px solid #1f2c34;display:flex;gap:10px;cursor:pointer;align-items:center}
+.c:hover{background:#202c33} .c.active{background:#2a3942}
+.c img{width:45px;height:45px;border-radius:50%;background:#333}
+.right{flex:1;display:flex;flex-direction:column}
+.msgs{flex:1;padding:15px;overflow-y:auto;background-image:url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');background-color:#0b141a}
+.b{background:#202c33;padding:10px 14px;border-radius:8px;margin:6px 0;max-width:75%;position:relative}
 .b.me{background:#005c4b;margin-left:auto}
-.bar{padding:10px;background:#202c33;display:flex;gap:8px;align-items:center}
+.b small{font-size:10px;color:#aaa;display:block;margin-top:5px}
+.del{position:absolute;top:-8px;right:-8px;background:red;color:#fff;border:none;border-radius:50%;width:20px;height:20px;cursor:pointer;display:none}
+.b:hover .del{display:block}
+.bar{padding:8px;background:#202c33;display:flex;gap:6px;align-items:center}
 .bar input{flex:1;padding:12px;border-radius:25px;border:none;background:#2a3942;color:#fff}
+button{border:none;cursor:pointer}
 .call-screen{position:fixed;top:0;left:0;width:100%;height:100%;background:#111b21;display:none;flex-direction:column;align-items:center;justify-content:center;z-index:99}
-.call-screen video{width:90%;max-width:400px;height:60%;background:#000;border-radius:15px;object-fit:cover}
-.btns{display:flex;gap:15px;margin-top:20px}
-.btn-call{padding:15px 25px;border-radius:50%;border:none;font-size:20px;cursor:pointer}
-.rec{background:red;animation:blink 1s infinite}
-@keyframes blink{0%{opacity:1}50%{opacity:.5}}
-a{color:#25D366;text-decoration:none;margin-left:8px}
+.call-screen video{width:90%;max-width:400px;height:60%;background:#000;border-radius:15px}
 </style>
 </head>
 <body>
 
 <div class="top">
-<b style="color:#25D366">WhatsApp Freddy Makola Business</b>
-<div><a href="index.html">🏠</a><a href="google.html">Google</a><a href="youtube.html">YouTube</a><a href="wikipedia.html">Wiki</a></div>
+<b style="color:#25D366">WhatsApp Freddy</b>
+<div style="display:flex;gap:8px">
+<button onclick="importContacts()" style="background:#25D366;padding:8px 12px;border-radius:20px;color:#fff">+ Contacts téléphone</button>
+<button onclick="addManual()" style="background:#fff;padding:8px 12px;border-radius:20px">+ Numéro</button>
+<a href="index.html" style="color:#25D366;text-decoration:none">🏠</a>
+</div>
 </div>
 
 <div class="main">
 <div class="left">
-<div class="c" onclick="selectContact('Maman')"><div>👤</div><div><b>Maman</b><br><small id="status">En ligne</small></div></div>
-<div class="c" onclick="selectContact('Client')"><div>💼</div><div><b>Client Business</b><br><small>Important</small></div></div>
-<div class="c" onclick="selectContact('Amis')"><div>👥</div><div><b>Amis</b><br><small>Partage actif</small></div></div>
+<div class="left-top"><input id="searchContact" placeholder="Chercher contact..." oninput="filterContacts()"></div>
+<div class="contacts" id="contactsList"></div>
 </div>
 
 <div class="right">
-<div class="msgs" id="msgs">
-<div class="b">Salut Freddy ! Teste les boutons 📞 🎥 🎤 maintenant ça marche VRAIMENT</div>
-</div>
-
+<div class="msgs" id="msgs"></div>
 <div class="bar">
-<button onclick="startVoice()" id="voiceBtn" style="background:#2a3942;border:none;padding:10px;border-radius:50%">🎤</button>
+<label style="background:#2a3942;padding:10px;border-radius:50%;cursor:pointer">📎<input type="file" id="fileInput" accept="video/*,image/*" style="display:none" onchange="shareFile(this)"></label>
+<button onclick="startVoice()" id="voiceBtn" style="background:#2a3942;padding:10px;border-radius:50%">🎤</button>
 <input id="txt" placeholder="Message...">
-<button onclick="send()" style="background:#25D366;border:none;padding:10px 15px;border-radius:50%">➤</button>
-<button onclick="startAudioCall()" style="background:#2a3942;border:none;padding:10px;border-radius:50%">📞</button>
-<button onclick="startVideoCall()" style="background:#2a3942;border:none;padding:10px;border-radius:50%">🎥</button>
-<button onclick="share()" style="background:#fff;color:#000;border:none;padding:8px 12px;border-radius:20px">↗</button>
+<button onclick="send()" style="background:#25D366;padding:10px 15px;border-radius:50%">➤</button>
+<button onclick="startAudioCall()" style="background:#2a3942;padding:10px;border-radius:50%">📞</button>
+<button onclick="startVideoCall()" style="background:#2a3942;padding:10px;border-radius:50%">🎥</button>
 </div>
 </div>
 </div>
 
-<!-- ECRAN APPEL -->
 <div class="call-screen" id="callScreen">
-<h2 id="callName">Appel en cours...</h2>
+<h2 id="callName">Appel...</h2>
 <video id="videoCall" autoplay muted playsinline></video>
-<audio id="audioCall" autoplay></audio>
 <p id="timer">00:00</p>
-<div class="btns">
-<button class="btn-call" style="background:red" onclick="endCall()">❌</button>
-<button class="btn-call" style="background:#2a3942" onclick="toggleMute()">🔇</button>
-<button class="btn-call" style="background:#25D366" id="recBtn" onclick="toggleRec()">⏺️</button>
+<div style="display:flex;gap:15px;margin-top:20px">
+<button style="background:red;padding:15px 25px;border-radius:50%" onclick="endCall()">❌</button>
+<button style="background:#2a3942;padding:15px 25px;border-radius:50%" onclick="toggleMute()">🔇</button>
 </div>
 </div>
 
 <script>
+let contacts = JSON.parse(localStorage.getItem('freddy_contacts')||'[]')
+let messages = JSON.parse(localStorage.getItem('freddy_msgs')||'{}')
+let currentContact = null
 let stream, mediaRecorder, chunks=[], isRec=false, timerInt, sec=0
-function send(){let v=document.getElementById('txt').value;if(!v)return;let d=document.createElement('div');d.className='b me';d.textContent=v;document.getElementById('msgs').appendChild(d);document.getElementById('txt').value='';}
-function selectContact(n){document.getElementById('status').textContent=n+' sélectionné';let d=document.createElement('div');d.className='b';d.textContent='Discussion avec '+n;document.getElementById('msgs').appendChild(d);}
-function share(){navigator.share?navigator.share({title:'WhatsApp Freddy',url:location.href}):prompt('Lien à partager:',location.href)}
 
+// AFFICHER CONTACTS
+function renderContacts(filter=''){
+  let list=document.getElementById('contactsList'); list.innerHTML=''
+  contacts.filter(c=>c.name.toLowerCase().includes(filter.toLowerCase())||c.phone.includes(filter)).forEach((c,i)=>{
+    let div=document.createElement('div'); div.className='c'+(currentContact==c.phone?' active':'')
+    div.innerHTML=`<img src="https://ui-avatars.com/api/?name=${encodeURIComponent(c.name)}&background=25D366&color=fff"><div><b>${c.name}</b><br><small>${c.phone}</small></div><div style="margin-left:auto"><button onclick="callReal('${c.phone}')" style="background:transparent;font-size:18px">📞</button><button onclick="deleteContact(${i})" style="background:transparent;font-size:14px">🗑️</button></div>`
+    div.onclick=()=>openChat(c.phone)
+    list.appendChild(div)
+  })
+}
+function openChat(phone){
+  currentContact=phone
+  renderContacts()
+  renderMessages()
+}
+function renderMessages(){
+  let box=document.getElementById('msgs'); box.innerHTML=''
+  let msgs=messages[currentContact]||[]
+  msgs.forEach((m,idx)=>{
+    let d=document.createElement('div'); d.className='b'+(m.me?' me':'')
+    if(m.type=='text') d.innerHTML=`${m.text}<small>${m.time} ${m.me?'✓✓':''}</small><button class="del" onclick="deleteMsg(${idx})">x</button>`
+    if(m.type=='video' || m.type=='image') d.innerHTML=`<video src="${m.url}" controls style="max-width:100%;border-radius:8px"></video><small>${m.time}</small><button class="del" onclick="deleteMsg(${idx})">x</button>`
+    if(m.type=='voice') d.innerHTML=`<audio controls src="${m.url}"></audio><small>${m.time}</small><button class="del" onclick="deleteMsg(${idx})">x</button>`
+    box.appendChild(d)
+  })
+  box.scrollTop=box.scrollHeight
+}
+function save(){localStorage.setItem('freddy_contacts',JSON.stringify(contacts)); localStorage.setItem('freddy_msgs',JSON.stringify(messages))}
+
+function send(){
+  if(!currentContact){alert('Choisis un contact d\'abord'); return}
+  let v=document.getElementById('txt').value; if(!v)return
+  if(!messages[currentContact]) messages[currentContact]=[]
+  messages[currentContact].push({type:'text',text:v,me:true,time:new Date().toLocaleTimeString()})
+  save(); renderMessages(); document.getElementById('txt').value=''
+}
+function deleteMsg(i){messages[currentContact].splice(i,1); save(); renderMessages()}
+function deleteContact(i){if(confirm('Supprimer ce contact ?')){contacts.splice(i,1); save(); renderContacts()}}
+function filterContacts(){renderContacts(document.getElementById('searchContact').value)}
+
+// AJOUTER CONTACTS
+function addManual(){
+  let name=prompt('Nom du contact :'); if(!name)return
+  let phone=prompt('Numéro WhatsApp (ex: +243...)'); if(!phone)return
+  contacts.push({name,phone}); save(); renderContacts()
+}
+async function importContacts(){
+  // Essaie l'API Contacts du téléphone (Android Chrome)
+  if('contacts' in navigator && 'ContactsManager' in window){
+    try{
+      const props=['name','tel']; const opts={multiple:true}
+      const cts=await navigator.contacts.select(props,opts)
+      cts.forEach(c=>{
+        if(c.tel[0]) contacts.push({name:c.name[0]||c.tel[0], phone:c.tel[0]})
+      })
+      save(); renderContacts(); alert(cts.length+' contacts importés !'); return
+    }catch(e){console.log(e)}
+  }
+  // Si pas supporté, demande manuel
+  alert('Ton navigateur ne permet pas l\'import auto. Clique sur + Numéro pour ajouter tes contacts un par un. Ils resteront enregistrés pour toujours.')
+}
+
+// PARTAGE FICHIER / VIDEO
+function shareFile(input){
+  if(!currentContact){alert('Choisis contact'); return}
+  let file=input.files[0]; if(!file)return
+  let url=URL.createObjectURL(file)
+  let type=file.type.startsWith('video')?'video':'image'
+  if(!messages[currentContact]) messages[currentContact]=[]
+  messages[currentContact].push({type,url,me:true,time:new Date().toLocaleTimeString()})
+  save(); renderMessages()
+}
+
+// APPELS
+function callReal(phone){window.open('tel:'+phone,'_self')}
 async function startAudioCall(){
-document.getElementById('callScreen').style.display='flex'
-document.getElementById('callName').textContent='📞 Appel Audio...'
-document.getElementById('videoCall').style.display='none'
-try{stream=await navigator.mediaDevices.getUserMedia({audio:true});document.getElementById('audioCall').srcObject=stream;startTimer()}catch(e){alert('Autorise le micro dans ton navigateur')}
+  if(!currentContact)return alert('Choisis contact')
+  document.getElementById('callScreen').style.display='flex'
+  document.getElementById('callName').textContent='📞 '+currentContact
+  document.getElementById('videoCall').style.display='none'
+  try{stream=await navigator.mediaDevices.getUserMedia({audio:true}); startTimer()}catch(e){alert('Autorise micro')}
 }
 async function startVideoCall(){
-document.getElementById('callScreen').style.display='flex'
-document.getElementById('callName').textContent='🎥 Appel Vidéo...'
-document.getElementById('videoCall').style.display='block'
-try{stream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});document.getElementById('videoCall').srcObject=stream;startTimer()}catch(e){alert('Autorise caméra + micro')}
+  if(!currentContact)return alert('Choisis contact')
+  document.getElementById('callScreen').style.display='flex'
+  document.getElementById('callName').textContent='🎥 '+currentContact
+  document.getElementById('videoCall').style.display='block'
+  try{stream=await navigator.mediaDevices.getUserMedia({video:true,audio:true}); document.getElementById('videoCall').srcObject=stream; startTimer()}catch(e){alert('Autorise caméra')}
 }
+function endCall(){document.getElementById('callScreen').style.display='none'; if(stream)stream.getTracks().forEach(t=>t.stop()); clearInterval(timerInt); sec=0; document.getElementById('timer').textContent='00:00'}
+function startTimer(){timerInt=setInterval(()=>{sec++; let m=String(Math.floor(sec/60)).padStart(2,'0'); let s=String(sec%60).padStart(2,'0'); document.getElementById('timer').textContent=m+':'+s},1000)}
+function toggleMute(){if(stream)stream.getAudioTracks().forEach(t=>t.enabled=!t.enabled)}
 function startVoice(){
-let btn=document.getElementById('voiceBtn')
-if(!isRec){
-navigator.mediaDevices.getUserMedia({audio:true}).then(s=>{
-stream=s;mediaRecorder=new MediaRecorder(s);chunks=[]
-mediaRecorder.ondataavailable=e=>chunks.push(e.data)
-mediaRecorder.onstop=()=>{
-let blob=new Blob(chunks,{type:'audio/webm'});let url=URL.createObjectURL(blob)
-let d=document.createElement('div');d.className='b me';d.innerHTML='<audio controls src="'+url+'"></audio> Vocal 🎤';document.getElementById('msgs').appendChild(d)
+  if(!currentContact)return alert('Choisis contact')
+  let btn=document.getElementById('voiceBtn')
+  if(!isRec){
+    navigator.mediaDevices.getUserMedia({audio:true}).then(s=>{
+      stream=s; mediaRecorder=new MediaRecorder(s); chunks=[]
+      mediaRecorder.ondataavailable=e=>chunks.push(e.data)
+      mediaRecorder.onstop=()=>{
+        let blob=new Blob(chunks,{type:'audio/webm'}); let url=URL.createObjectURL(blob)
+        if(!messages[currentContact]) messages[currentContact]=[]
+        messages[currentContact].push({type:'voice',url,me:true,time:new Date().toLocaleTimeString()})
+        save(); renderMessages()
+      }
+      mediaRecorder.start(); isRec=true; btn.textContent='⏹️'; btn.style.background='red'
+    })
+  }else{
+    mediaRecorder.stop(); stream.getTracks().forEach(t=>t.stop()); isRec=false; btn.textContent='🎤'; btn.style.background='#2a3942'
+  }
 }
-mediaRecorder.start();isRec=true;btn.textContent='⏹️';btn.classList.add('rec');btn.style.background='red'
-}).catch(()=>alert('Autorise le micro'))
-}else{
-mediaRecorder.stop();stream.getTracks().forEach(t=>t.stop());isRec=false;btn.textContent='🎤';btn.classList.remove('rec');btn.style.background='#2a3942'
-}
-}
-function endCall(){document.getElementById('callScreen').style.display='none';if(stream)stream.getTracks().forEach(t=>t.stop());clearInterval(timerInt);sec=0;document.getElementById('timer').textContent='00:00'}
-function startTimer(){timerInt=setInterval(()=>{sec++;let m=String(Math.floor(sec/60)).padStart(2,'0');let s=String(sec%60).padStart(2,'0');document.getElementById('timer').textContent=m+':'+s},1000)}
-function toggleMute(){if(stream){stream.getAudioTracks().forEach(t=>t.enabled=!t.enabled)}}
-function toggleRec(){alert('Enregistrement vocal activé ⏺️')}
+
+renderContacts()
+if(contacts.length>0){currentContact=contacts[0].phone; renderMessages()}
 </script>
 </body>
 </html>
