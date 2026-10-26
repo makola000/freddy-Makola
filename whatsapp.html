@@ -1,25 +1,33 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Freddy Makola WhatsApp</title><style>body{margin:0;background:#0b141a;color:#fff;font-family:sans-serif;display:flex;height:100vh} .left{width:40%;background:#111b21;border-right:1px solid #222;display:flex;flex-direction:column} .right{flex:1;display:flex;flex-direction:column} .top-left{background:#202c33;padding:14px;text-align:center} .top-left h1{margin:0;font-size:26px;color:#25D366;letter-spacing:2px;font-weight:900} .top-left small{color:#aaa} .top-right{background:#202c33;padding:12px;display:flex;justify-content:space-between;align-items:center} .list{flex:1;overflow:auto} .contact{padding:12px;border-bottom:1px solid #222;cursor:pointer;display:flex;gap:10px;align-items:center} .contact.active{background:#2a3942} .avatar{width:42px;height:42px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold} .msgs{flex:1;overflow:auto;padding:12px;background:#0b141a} .msg{padding:10px 14px;border-radius:12px;margin:6px 0;max-width:78%;line-height:1.4} .me{background:#005c4b;margin-left:auto} .ai{background:#1a3a4a;border-left:4px solid #25D366} .bar{background:#202c33;padding:10px;display:flex;gap:8px} .bar input{flex:1;padding:14px;border-radius:25px;border:none;background:#2a3942;color:#fff} .btn{background:#25D366;width:46px;height:46px;border-radius:50%;border:none;color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center} .btn2{width:auto;padding:6px 12px;border-radius:20px;font-size:12px;background:#2a3942} .call-btns{display:flex;gap:6px}</style></head><body>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Freddy Makola - WhatsApp Tech</title><style>body{margin:0;background:#0b141a;color:#fff;font-family:sans-serif;display:flex;height:100vh} .left{width:42%;background:#111b21;border-right:1px solid #222;display:flex;flex-direction:column} .right{flex:1;display:flex;flex-direction:column} .top-big{background:#111b21;padding:12px;text-align:center;border-bottom:2px solid #25D366} .top-big h1{margin:0;color:#25D366;font-size:26px;letter-spacing:1px} .top-big .jobs{display:flex;gap:4px;justify-content:center;flex-wrap:wrap;margin-top:8px} .jobs button{padding:5px 8px;border-radius:15px;border:1px solid #25D366;background:transparent;color:#25D366;font-size:11px} .jobs button.active{background:#25D366;color:#fff} .list{flex:1;overflow:auto} .contact{padding:10px;border-bottom:1px solid #222;cursor:pointer;display:flex;gap:8px;align-items:center} .contact.active{background:#2a3942} .avatar{width:38px;height:38px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:14px} .top-chat{background:#202c33;padding:10px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:5px} .msgs{flex:1;overflow:auto;padding:10px;background:#0b141a} .msg{padding:10px;border-radius:10px;margin:5px 0;max-width:80%;font-size:14px} .me{background:#005c4b;margin-left:auto} .them{background:#202c33} .ai{background:#1a3a4a;border-left:3px solid #25D366} .bar{background:#202c33;padding:8px;display:flex;gap:6px} .bar input{flex:1;padding:12px;border-radius:20px;border:none;background:#2a3942;color:#fff} .btn{background:#25D366;width:42px;height:42px;border-radius:50%;border:none;color:#fff} .btn2{width:auto;padding:5px 10px;border-radius:15px;font-size:11px;background:#2a3942;border:none;color:#fff} .quick{display:flex;gap:4px;flex-wrap:wrap;padding:6px;background:#111b21}</style></head><body>
 <div class="left">
-<div class="top-left">
+<div class="top-big">
 <h1>FREDDY MAKOLA</h1>
-<small>WhatsApp Business + IA</small>
-<div style="margin-top:8px;display:flex;gap:6px;justify-content:center;flex-wrap:wrap">
-<button class="btn btn2" onclick="loadPhoneContacts()">📲 Contacts</button>
-<button class="btn btn2" onclick="addContactManu()">➕ Nouveau</button>
-<button class="btn btn2" id="bAI" onclick="toggleAI()">🤖 IA OFF</button>
+<small style="color:#aaa">Technicien Chercheur</small>
+<div class="jobs" id="jobBtns">
+<button class="active" onclick="setJob('electricite',this)">⚡ Électricité</button>
+<button onclick="setJob('maconnerie',this)">🧱 Maçonnerie</button>
+<button onclick="setJob('mecanique',this)">🔧 Mécanique</button>
+<button onclick="setJob('electronique',this)">📱 Électronique</button>
+</div>
+<div style="margin-top:8px;display:flex;gap:4px;justify-content:center">
+<button class="btn2" onclick="loadPhoneContacts()">📲 Contacts</button>
+<button class="btn2" onclick="addContactManu()">➕ Nouveau</button>
+<button class="btn2" id="bAI" onclick="toggleAI()">🤖 IA OFF</button>
 </div>
 </div>
 <div class="list" id="list"></div>
 </div>
 <div class="right">
-<div class="top-right">
-<span id="chatName">Choisis un contact</span>
-<div class="call-btns">
-<button class="btn btn2" onclick="voiceCall()">📞 Vocal</button>
-<button class="btn btn2" onclick="videoCall()">🎥 Vidéo</button>
-<a href="index.html" style="color:#25D366;text-decoration:none;font-size:20px">🏠</a>
+<div class="top-chat">
+<span id="chatName" style="font-weight:bold">Choisis contact</span>
+<div style="display:flex;gap:4px;flex-wrap:wrap">
+<button class="btn2" onclick="voiceCall()">📞 Vocal</button>
+<button class="btn2" onclick="videoCall()">🎥 Vidéo</button>
+<button class="btn2" style="background:#25D366" onclick="faireDevis()">🧾 Devis</button>
+<a href="index.html" style="color:#25D366;text-decoration:none">🏠</a>
 </div>
 </div>
+<div class="quick" id="quickBtns"></div>
 <div class="msgs" id="box"></div>
 <div class="bar">
 <input id="txt" placeholder="Message..." onkeydown="if(event.key==='Enter')send()">
@@ -29,16 +37,50 @@
 <script>
 let contacts=JSON.parse(localStorage.getItem('freddy_contacts')||'[]');
 let msgs=JSON.parse(localStorage.getItem('freddy_all_msgs')||'{}');
-let current=null, aiMode=false;
-function save(){localStorage.setItem('freddy_contacts',JSON.stringify(contacts));localStorage.setItem('freddy_all_msgs',JSON.stringify(msgs));}
-function renderContacts(){let l=document.getElementById('list');l.innerHTML='';contacts.forEach((c,i)=>{let d=document.createElement('div');d.className='contact'+(current===i?' active':'');d.innerHTML=`<div class="avatar">${c.name[0].toUpperCase()}</div><div><b>${c.name}</b><br><small style="color:#aaa">${c.tel}</small></div>`;d.onclick=()=>openChat(i);l.appendChild(d)});}
-function openChat(i){current=i;document.getElementById('chatName').textContent=contacts[i].name;renderContacts();renderMsgs();}
-function renderMsgs(){let b=document.getElementById('box');b.innerHTML='';if(current===null){b.innerHTML='<div style="text-align:center;color:#888;margin-top:60px"><h2 style="color:#25D366">FREDDY MAKOLA</h2>👈 Choisis un contact<br><br>📞 Vocal = Appel WhatsApp vocal<br>🎥 Vidéo = Appel vidéo WhatsApp</div>';return;}let id=contacts[current].tel;let list=msgs[id]||[];if(list.length==0){b.innerHTML='<div style="text-align:center;color:#888;margin-top:40px">Pas de message avec '+contacts[current].name+'<br>Écris en bas</div>';return;}list.forEach(m=>{let d=document.createElement('div');d.className='msg '+m.c;d.innerHTML=m.t;b.appendChild(d)});b.scrollTop=b.scrollHeight}
-function send(){let t=document.getElementById('txt').value.trim();if(!t||current===null)return alert('Choisis un contact d abord');let tel=contacts[current].tel;if(!msgs[tel])msgs[tel]=[];msgs[tel].push({t:t+'<br><small>'+new Date().toLocaleTimeString()+'</small>',c:'me'});save();renderMsgs();document.getElementById('txt').value='';if(aiMode){setTimeout(()=>{msgs[tel].push({t:'🤖 Freddy IA: Reçu "'+t+'"<br><small>'+new Date().toLocaleTimeString()+'</small>',c:'ai'});save();renderMsgs();},600);}else{window.open('https://wa.me/'+tel.replace(/\D/g,'')+'?text='+encodeURIComponent(t),'_blank');}}
-async function loadPhoneContacts(){try{if(!('contacts' in navigator && 'ContactsManager' in window)){alert('Utilise ➕ Nouveau. Pour auto: Android + Chrome à jour.');return;}let props=['name','tel'];let c=await navigator.contacts.select(props,{multiple:true});c.forEach(p=>{if(p.tel&&p.tel.length>0){contacts.push({name:p.name[0]||'Sans nom',tel:p.tel[0].replace(/\D/g,'')})}});save();renderContacts();alert(c.length+' contacts ajoutés !');}catch(e){alert('Refusé - Utilise ➕ Nouveau')}}
-function addContactManu(){let n=prompt('Nom:');if(!n)return;let t=prompt('Numéro 243... ex: 243983356734');if(!t)return;contacts.push({name:n,tel:t.replace(/\D/g,'')});save();renderContacts();}
+let current=null, aiMode=false, currentJob='electricite';
+const JOBS={
+electricite:{name:'Électricité',tarifs:['Dépannage 15$','Installation prise 5$','Tableau 50$','Solaire diag 20$'],diag:'Panne électrique'},
+maconnerie:{name:'Maçonnerie',tarifs:['Brique m2 25$','Crépissage m2 8$','Fondation ml 15$','Carrelage m2 12$'],diag:'Travaux maçonnerie'},
+mecanique:{name:'Mécanique',tarifs:['Vidange 20$','Freins 30$','Moteur diag 25$','Pneu 10$'],diag:'Panne mécanique'},
+electronique:{name:'Électronique',tarifs:['Téléphone diag 5$','TV réparation 20$','Soudure 10$','Déblocage 8$'],diag:'Panne électronique'}
+};
+function setJob(job,el){
+currentJob=job;
+document.querySelectorAll('.jobs button').forEach(b=>b.classList.remove('active'));
+el.classList.add('active');
+renderQuick(); save();
+}
+function renderQuick(){
+let q=document.getElementById('quickBtns');q.innerHTML='';
+JOBS[currentJob].tarifs.forEach(t=>{
+let b=document.createElement('button');b.className='btn2';b.textContent=t;b.onclick=()=>{document.getElementById('txt').value=t+' - '+JOBS[currentJob].name;};
+q.appendChild(b);
+});
+let b2=document.createElement('button');b2.className='btn2';b2.style.background='#25D366';b2.textContent='📍 Dispo '+currentJob;b2.onclick=()=>{document.getElementById('txt').value='Bonjour, disponible pour '+JOBS[currentJob].name+' à Lubumbashi. Intervention rapide. Freddy Makola';};q.appendChild(b2);
+}
+function save(){localStorage.setItem('freddy_contacts',JSON.stringify(contacts));localStorage.setItem('freddy_all_msgs',JSON.stringify(msgs));localStorage.setItem('freddy_job',currentJob);}
+function renderContacts(){let l=document.getElementById('list');l.innerHTML='';contacts.forEach((c,i)=>{let d=document.createElement('div');d.className='contact'+(current===i?' active':'');d.innerHTML=`<div class="avatar">${c.name[0].toUpperCase()}</div><div><b>${c.name}</b><br><small style="color:#aaa">${c.tel} • ${c.job||currentJob}</small></div>`;d.onclick=()=>openChat(i);l.appendChild(d)});}
+function openChat(i){current=i;document.getElementById('chatName').textContent=contacts[i].name+' - '+(contacts[i].job||currentJob);renderContacts();renderMsgs();}
+function renderMsgs(){let b=document.getElementById('box');b.innerHTML='';if(current===null){b.innerHTML=`<div style="text-align:center;color:#888;margin-top:40px"><h2 style="color:#25D366">FREDDY MAKOLA</h2><b>${JOBS[currentJob].name.toUpperCase()}</b><br><br>👈 Choisis un contact<br>📞 Vocal = appel WhatsApp<br>🎥 Vidéo = vidéo WhatsApp<br>🧾 Devis = facture auto<br><br><small>Métier actuel: ${currentJob}</small></div>`;return;}let id=contacts[current].tel;let list=msgs[id]||[];if(list.length==0){b.innerHTML='<div style="text-align:center;color:#888;margin-top:30px">Pas de message avec '+contacts[current].name+'<br>Choisis un tarif rapide en haut</div>';return;}list.forEach(m=>{let d=document.createElement('div');d.className='msg '+m.c;d.innerHTML=m.t;b.appendChild(d)});b.scrollTop=b.scrollHeight}
+function send(){let t=document.getElementById('txt').value.trim();if(!t||current===null)return alert('Choisis contact');let tel=contacts[current].tel;if(!msgs[tel])msgs[tel]=[];msgs[tel].push({t:t+'<br><small>'+new Date().toLocaleTimeString()+' | '+JOBS[currentJob].name+'</small>',c:'me'});save();renderMsgs();document.getElementById('txt').value='';if(aiMode){setTimeout(()=>{msgs[tel].push({t:'🤖 IA Freddy ('+JOBS[currentJob].name+'): Reçu. Intervention possible.<br><small>'+new Date().toLocaleTimeString()+'</small>',c:'ai'});save();renderMsgs();},500);}else{window.open('https://wa.me/'+tel.replace(/\D/g,'')+'?text='+encodeURIComponent(t+' - '+JOBS[currentJob].name),'_blank');}}
+async function loadPhoneContacts(){try{if(!('contacts' in navigator && 'ContactsManager' in window)){alert('Utilise ➕ Nouveau');return;}let c=await navigator.contacts.select(['name','tel'],{multiple:true});c.forEach(p=>{if(p.tel&&p.tel.length>0){contacts.push({name:p.name[0]||'Sans nom',tel:p.tel[0].replace(/\D/g,''),job:currentJob})}});save();renderContacts();alert(c.length+' ajoutés en '+JOBS[currentJob].name);}catch(e){alert('Refusé - Utilise ➕ Nouveau')}}
+function addContactManu(){let n=prompt('Nom:');if(!n)return;let t=prompt('Numéro 243...');if(!t)return;contacts.push({name:n,tel:t.replace(/\D/g,''),job:currentJob});save();renderContacts();}
 function toggleAI(){aiMode=!aiMode;let b=document.getElementById('bAI');b.textContent=aiMode?'🤖 IA ON':'🤖 IA OFF';b.style.background=aiMode?'#25D366':'#2a3942';}
-function voiceCall(){if(current===null)return alert('Choisis un contact');let tel=contacts[current].tel.replace(/\D/g,'');window.open('https://wa.me/'+tel,'_blank');setTimeout(()=>{alert('WhatsApp ouvert pour '+contacts[current].name+'\n\nClique sur 📞 en haut dans WhatsApp pour Appel Vocal');},800);}
-function videoCall(){if(current===null)return alert('Choisis un contact');let tel=contacts[current].tel.replace(/\D/g,'');window.open('https://wa.me/'+tel,'_blank');setTimeout(()=>{alert('WhatsApp ouvert pour '+contacts[current].name+'\n\nClique sur 🎥 en haut dans WhatsApp pour Appel Vidéo');},800);}
-renderContacts();renderMsgs();
+function voiceCall(){if(current===null)return alert('Choisis contact');let tel=contacts[current].tel.replace(/\D/g,'');window.open('https://wa.me/'+tel,'_blank');setTimeout(()=>{alert('WhatsApp ouvert - Clique 📞 dans WhatsApp pour appel vocal');},600);}
+function videoCall(){if(current===null)return alert('Choisis contact');let tel=contacts[current].tel.replace(/\D/g,'');window.open('https://wa.me/'+tel,'_blank');setTimeout(()=>{alert('WhatsApp ouvert - Clique 🎥 dans WhatsApp pour appel vidéo');},600);}
+function faireDevis(){
+if(current===null)return alert('Choisis contact');
+let client=contacts[current].name;
+let metier=JOBS[currentJob].name;
+let prix=prompt('Prix du devis pour '+metier+' (ex: 15$):','15$');
+if(!prix)return;
+let detail=prompt('Détail travaux:','Dépannage '+metier);
+let devis=`🧾 DEVIS FREDDY MAKOLA\nTechnicien Chercheur - ${metier}\n\nClient: ${client}\nTravail: ${detail}\nPrix: ${prix}\nDate: ${new Date().toLocaleDateString()}\nTel: 0983356734\n\nMerci pour confiance!`;
+let tel=contacts[current].tel;if(!msgs[tel])msgs[tel]=[];
+msgs[tel].push({t:devis.replace(/\n/g,'<br>')+'<br><small>'+new Date().toLocaleTimeString()+'</small>',c:'me'});
+save();renderMsgs();
+window.open('https://wa.me/'+tel.replace(/\D/g,'')+'?text='+encodeURIComponent(devis),'_blank');
+}
+currentJob=localStorage.getItem('freddy_job')||'electricite';
+renderQuick();renderContacts();renderMsgs();
 </script></body></html>
