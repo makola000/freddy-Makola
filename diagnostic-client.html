@@ -1,54 +1,101 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Envoyer Panne à Freddy Makola</title><style>body{margin:0;background:#0b141a;color:#fff;font-family:sans-serif;padding:15px} .card{background:#202c33;padding:18px;border-radius:15px;max-width:450px;margin:0 auto;border-top:3px solid #25D366} h1{color:#25D366;margin:0;text-align:center} input,select,textarea{width:100%;padding:14px;margin:8px 0;border-radius:10px;border:none;background:#2a3942;color:#fff;box-sizing:border-box;font-size:15px} button{width:100%;padding:16px;border-radius:12px;border:none;background:#25D366;color:#fff;font-weight:bold;font-size:16px;margin-top:10px} #preview{max-width:100%;border-radius:10px;display:none;margin-top:10px}</style></head><body>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Envoyer Voice à Freddy - Traducteur</title><style>body{margin:0;background:#0b141a;color:#fff;font-family:sans-serif;padding:12px} .card{background:#202c33;padding:16px;border-radius:15px;max-width:480px;margin:0 auto;border-top:3px solid #25D366} h1{color:#25D366;margin:0;text-align:center;font-size:22px} input,select,textarea{width:100%;padding:12px;margin:6px 0;border-radius:10px;border:none;background:#2a3942;color:#fff;box-sizing:border-box;font-size:14px} button{width:100%;padding:14px;border-radius:12px;border:none;font-weight:bold;font-size:14px;margin-top:6px;cursor:pointer} .voice-area{background:#111b21;padding:12px;border-radius:12px;margin:10px 0;border:1px solid #333;text-align:center} .mic{width:70px;height:70px;border-radius:50%;background:#25D366;border:none;color:#fff;font-size:30px;animation:none} .mic.rec{background:#ff3b30;animation:pulse 1s infinite} @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.1)}100%{transform:scale(1)}} #preview{max-width:100%;border-radius:10px;display:none;margin-top:8px} .lang{display:flex;gap:5px} .lang select{flex:1} .result{background:#1a3a4a;padding:10px;border-radius:8px;margin-top:8px;font-size:13px;display:none}</style></head><body>
 <div class="card">
 <h1>FREDDY MAKOLA</h1>
-<p style="text-align:center;color:#aaa;font-size:13px">Technicien Chercheur - Lubumbashi<br>Envoie photo de ta panne</p>
+<p style="text-align:center;color:#aaa;font-size:12px">🎤 Voice + 🌐 Traducteur Auto -> Français</p>
+
+<div class="lang">
+<select id="langFrom"><option value="zh-CN">🇨🇳 Mandarin</option><option value="en-US">🇺🇸 Anglais</option><option value="sw">🇨🇩 Swahili</option><option value="ln">Lingala</option><option value="fr-FR">🇫🇷 Français</option><option value="auto">🌍 Auto-détecter</option></select>
+<select id="langTo"><option value="fr">-> 🇫🇷 Français pour Freddy</option></select>
+</div>
+
+<div class="voice-area">
+<p style="margin:5px 0;font-size:12px;color:#25D366" id="voiceStatus">Clique sur le micro et parle</p>
+<button class="mic" id="micBtn" onclick="toggleVoice()">🎤</button>
+<p style="font-size:11px;color:#888;margin:5px 0">Parle dans ta langue, Freddy recevra en français</p>
+<div id="originalText" class="result"></div>
+<div id="translatedText" class="result" style="background:#005c4b;border-left:3px solid #25D366"></div>
+</div>
 
 <select id="job"><option value="Électricité">⚡ Électricité</option><option value="Maçonnerie">🧱 Maçonnerie</option><option value="Mécanique">🔧 Mécanique</option><option value="Électronique">📱 Électronique</option></select>
-<select id="panne"><option>Coupure totale</option><option>Prise qui chauffe</option><option>Disjoncteur saute</option><option>Mur fissuré</option><option>Moteur ne démarre pas</option><option>Téléphone écran noir</option><option>Autre</option></select>
 <input id="nom" placeholder="Ton nom">
-<input id="tel" placeholder="Ton numéro WhatsApp 243...">
-<textarea id="desc" rows="3" placeholder="Décris la panne... Ex: Ma prise sent le brûlé depuis hier"></textarea>
+<textarea id="desc" rows="2" placeholder="Ou écris ici... sera traduit en français pour Freddy"></textarea>
 
-<label style="font-size:12px;color:#25D366">📸 PHOTO DE LA PANNE (très important):</label>
+<label style="font-size:12px;color:#25D366">📸 Photo panne (optionnel):</label>
 <input type="file" id="photo" accept="image/*" capture="environment" onchange="showPreview(this)">
 <img id="preview">
 
-<div id="iaResult" style="display:none;background:#1a3a4a;padding:12px;border-radius:10px;margin-top:12px;font-size:13px"></div>
+<button style="background:#ff9800" onclick="traduireTexte()">🌐 Traduire mon texte en Français</button>
+<button style="background:#25D366" onclick="envoyerFreddy()">📲 Envoyer à Freddy en Français</button>
 
-<button style="background:#ff9800" onclick="faireDiag()">🔍 Analyser Panne avec IA</button>
-<button onclick="envoyerFreddy()">📲 Envoyer à Freddy sur WhatsApp</button>
-
-<p style="font-size:11px;color:#888;text-align:center;margin-top:12px">Après analyse, clique sur Envoyer. Ta photo sera à envoyer manuellement dans WhatsApp qui va s'ouvrir. Freddy te répond en 5 min.</p>
+<p style="font-size:10px;color:#888;text-align:center">Ex: Cliente dit en mandarin "我的插座烧了" -> Freddy reçoit "Ma prise a brûlé"</p>
 </div>
 <script>
-let photoData = null;
-function showPreview(input){
- if(input.files[0]){
-  let r = new FileReader();
-  r.onload = e => {
-   document.getElementById('preview').src = e.target.result;
-   document.getElementById('preview').style.display='block';
-   photoData = e.target.result;
-  };
-  r.readAsDataURL(input.files[0]);
+let recognition, isRecording=false, lastOriginal="", lastTranslated="";
+function showPreview(input){ if(input.files[0]){ let r=new FileReader(); r.onload=e=>{ document.getElementById('preview').src=e.target.result; document.getElementById('preview').style.display='block'; }; r.readAsDataURL(input.files[0]); } }
+
+function toggleVoice(){
+ let btn=document.getElementById('micBtn');
+ let status=document.getElementById('voiceStatus');
+ if(!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)){ alert('Ton navigateur ne supporte pas le voice. Utilise Chrome.'); return; }
+ if(isRecording){ recognition.stop(); return; }
+ let SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+ recognition = new SpeechRecognition();
+ recognition.lang = document.getElementById('langFrom').value === 'auto' ? '' : document.getElementById('langFrom').value;
+ recognition.interimResults = false;
+ recognition.continuous = false;
+ recognition.onstart=()=>{ isRecording=true; btn.classList.add('rec'); status.textContent='🎧 J\'écoute... parle maintenant'; status.style.color='#ff3b30'; }
+ recognition.onend=()=>{ isRecording=false; btn.classList.remove('rec'); status.textContent='Clique sur le micro et parle'; status.style.color='#25D366'; }
+ recognition.onresult=async (e)=>{
+  let text = e.results[0][0].transcript;
+  lastOriginal = text;
+  document.getElementById('originalText').style.display='block';
+  document.getElementById('originalText').innerHTML='<b>Tu as dit ('+document.getElementById('langFrom').options[document.getElementById('langFrom').selectedIndex].text+'):</b><br>'+text;
+  await traduire(text, true);
+ };
+ recognition.onerror=(e)=>{ status.textContent='Erreur: '+e.error; isRecording=false; btn.classList.remove('rec'); }
+ recognition.start();
+}
+
+async function traduireTexte(){
+ let txt=document.getElementById('desc').value.trim();
+ if(!txt) return alert('Écris quelque chose');
+ lastOriginal=txt;
+ document.getElementById('originalText').style.display='block';
+ document.getElementById('originalText').innerHTML='<b>Original:</b><br>'+txt;
+ await traduire(txt, true);
+}
+
+async function traduire(text, isVoice=false){
+ let resDiv = document.getElementById('translatedText');
+ resDiv.style.display='block';
+ resDiv.innerHTML='🌐 Traduction en français...';
+ let from = document.getElementById('langFrom').value;
+ let fromCode = from.split('-')[0];
+ if(fromCode=='auto') fromCode='auto';
+ try{
+  // MyMemory API gratuit
+  let url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${fromCode=='auto'?'en':fromCode}|fr`;
+  let resp = await fetch(url);
+  let data = await resp.json();
+  let trad = data.responseData.translatedText;
+  lastTranslated = trad;
+  resDiv.innerHTML=`<b>✅ Pour Freddy (Français):</b><br><span style="font-size:15px;color:#fff">${trad}</span><br><br><small>Original: ${text}</small>`;
+  if(isVoice) document.getElementById('desc').value = trad + " (traduit de: "+text+")";
+  else document.getElementById('desc').value = trad;
+ }catch(e){
+  // Fallback sans API
+  lastTranslated = text + " [à traduire]";
+  resDiv.innerHTML=`<b>⚠️ Traduction hors ligne:</b><br>${text}<br><small>Internet faible, Freddy traduira. Envoie quand même.</small>`;
+  document.getElementById('desc').value = text;
  }
 }
-function faireDiag(){
- let j = document.getElementById('job').value;
- let p = document.getElementById('panne').value;
- let d = document.getElementById('desc').value;
- let res = document.getElementById('iaResult');
- let prix = j=="Électricité"?"15-25$":j=="Maçonnerie"?"Devis gratuit sur place":j=="Mécanique"?"25$ diag":"5-20$";
- res.style.display='block';
- res.innerHTML=`<b>🤖 IA Freddy - Diagnostic ${j}:</b><br><br>Panne: ${p}<br>Détail: ${d}<br><br><b>Analyse:</b> ${j=="Électricité"?"Court-circuit probable, couper courant.":"Besoin intervention rapide."}<br><br><b style="color:#25D366">Prix estimé: ${prix}</b><br><br>📸 Photo: ${photoData?"✅ Photo jointe":"❌ Ajoute photo pour meilleur diag"}`;
- window._diagText = `PANNE ${j} - ${p} - ${d} - Prix ${prix}`;
-}
+
 function envoyerFreddy(){
- let nom = document.getElementById('nom').value || "Client";
- let tel = document.getElementById('tel').value;
- let job = document.getElementById('job').value;
- let msg = `Bonjour Freddy Makola!\n\nJe suis ${nom} (${tel})\n\n🔧 Métier: ${job}\n${window._diagText || document.getElementById('desc').value}\n\nJ'ai une photo de la panne (je l'envoie juste après ce message).\n\nMerci!\n\nEnvoyé depuis: https://makola000.github.io/freddy-Makola/diagnostic-client.html`;
+ let nom=document.getElementById('nom').value||"Client";
+ let job=document.getElementById('job').value;
+ let finalText = lastTranslated || document.getElementById('desc').value;
+ if(!finalText) return alert('Parle ou écris d\'abord');
+ let msg = `Bonjour Freddy!\n\nClient: ${nom}\nMétier: ${job}\n\n🌐 Message traduit en FRANÇAIS:\n${finalText}\n\n📝 Original: ${lastOriginal}\n\nLangue originale: ${document.getElementById('langFrom').options[document.getElementById('langFrom').selectedIndex].text}\n\nEnvoyé depuis Traducteur Voice:\nhttps://makola000.github.io/freddy-Makola/diagnostic-client.html`;
  window.open('https://wa.me/243983356734?text='+encodeURIComponent(msg), '_blank');
- setTimeout(()=>{alert("WhatsApp s'ouvre.\n\nIMPORTANT:\n1. Envoie d'abord le message texte\n2. Après, WhatsApp va s'ouvrir sur ta discussion avec Freddy\n3. Clique sur 📎 trombone > Galerie > Choisis la même photo de la panne et envoie-la.\n\nComme ça Freddy reçoit texte + photo.");}, 800);
 }
 </script></body></html>
