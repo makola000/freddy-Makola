@@ -1,10 +1,8 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Freddy Final Auto Paste</title><style>body{margin:0;background:#0b141a;color:#fff;font-family:sans-serif;padding:10px} .card{background:#202c33;padding:14px;border-radius:15px;max-width:500px;margin:0 auto;border-top:4px solid #25D366} h1{color:#25D366;text-align:center;margin:0;font-size:20px} h2{color:#25D366;font-size:13px;margin:12px 0 5px 0;border-left:3px solid #25D366;padding-left:8px} button{width:100%;padding:13px;border-radius:10px;border:none;font-weight:bold;margin-top:6px;cursor:pointer} .box{background:#111b21;padding:12px;border-radius:12px;margin:8px 0;border:1px solid #333} .mic{width:80px;height:80px;border-radius:50%;background:#25D366;border:3px solid #fff;color:#fff;font-size:32px;display:block;margin:10px auto} .mic.rec{background:red;animation:pulse 1s infinite} @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.15)}100%{transform:scale(1)}} .result{background:#1a3a4a;padding:10px;border-radius:8px;margin-top:8px;font-size:13px;white-space:pre-wrap;display:none} input,select,textarea{width:100%;padding:12px;margin:5px 0;border-radius:10px;border:none;background:#2a3942;color:#fff;box-sizing:border-box} .timer{color:#25D366;font-weight:bold;text-align:center} .auto{background:#00ff88;color:#000;padding:10px;border-radius:8px;text-align:center;font-size:12px;display:none;margin-top:8px;font-weight:bold}</style></head><body>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Freddy FINAL - Parle Français</title><style>body{margin:0;background:#0b141a;color:#fff;font-family:sans-serif;padding:10px} .card{background:#202c33;padding:14px;border-radius:15px;max-width:500px;margin:0 auto;border-top:4px solid #25D366} h1{color:#25D366;text-align:center;margin:0;font-size:20px} h2{color:#25D366;font-size:13px;margin:12px 0 5px 0;border-left:3px solid #25D366;padding-left:8px} button{width:100%;padding:13px;border-radius:10px;border:none;font-weight:bold;margin-top:6px;cursor:pointer} .box{background:#111b21;padding:12px;border-radius:12px;margin:8px 0;border:1px solid #333} .mic{width:80px;height:80px;border-radius:50%;background:#25D366;border:3px solid #fff;color:#fff;font-size:32px;display:block;margin:10px auto} .mic.rec{background:red;animation:pulse 1s infinite} @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.15)}100%{transform:scale(1)}} .result{background:#1a3a4a;padding:10px;border-radius:8px;margin-top:8px;font-size:13px;white-space:pre-wrap;display:none} input,select,textarea{width:100%;padding:12px;margin:5px 0;border-radius:10px;border:none;background:#2a3942;color:#fff;box-sizing:border-box} .timer{color:#25D366;font-weight:bold;text-align:center} .auto{background:#00ff88;color:#000;padding:10px;border-radius:8px;text-align:center;font-size:12px;display:none;margin-top:8px;font-weight:bold}</style></head><body>
 <div class="card">
-<h1>FREDDY MAKOLA - FINAL</h1>
-<p style="text-align:center;color:#aaa;font-size:10px">Voice 10min + Texte - Auto traduction FR vers Freddy</p>
-
-<input id="nom" placeholder="Ton nom">
-<select id="job"><option>⚡ Électricité</option><option>🧱 Maçonnerie</option><option>🔧 Mécanique</option><option>📱 Électronique</option></select>
+<h1>FREDDY MAKOLA - FINAL QUI PARLE</h1>
+<p style="text-align:center;color:#aaa;font-size:10px">Voice 10min + Texte + Trad FR + Voix qui parle</p>
+<input id="nom" placeholder="Ton nom"><select id="job"><option>⚡ Électricité</option><option>🧱 Maçonnerie</option><option>🔧 Mécanique</option><option>📱 Électronique</option></select>
 
 <h2>🎤 PARTIE 1: VOICE 10 MIN</h2>
 <div class="box" style="text-align:center;border-color:#25D366">
@@ -16,42 +14,99 @@
 
 <h2>✍️ PARTIE 2: ÉCRIRE</h2>
 <div class="box" style="border-color:#ff9800">
-<textarea id="textOriginal" rows="3" placeholder="Écris ici dans ta langue: 我的插座坏了 / My socket broken..."></textarea>
+<textarea id="textOriginal" rows="3" placeholder="Écris dans ta langue: 我的插座坏了 / My socket broken..."></textarea>
 </div>
 
 <div class="box" style="border:2px solid #4285F4;background:#0d2a45">
-<p style="font-size:12px;text-align:center;margin:0">🌐 TRADUCTION GOOGLE -> FREDDY (AUTO)</p>
-<button style="background:#4285F4;color:#fff;font-size:14px" onclick="ouvrirGoogle()">🌐 1. OUVRIR GOOGLE TRAD + COPIER LE FRANÇAIS</button>
-<div id="autoMsg" class="auto">✅ Traduction détectée automatiquement!</div>
-<textarea id="textFinal" rows="4" placeholder="La traduction française apparaîtra ici automatiquement quand tu reviens de Google..." style="border:2px solid #00ff88;background:#0a2a1a;font-size:15px;font-weight:bold"></textarea>
-<p style="font-size:10px;color:#00ff88;text-align:center">ASTUCE: Sur Google, copie le français en bas. Dès que tu reviens ici, ça se colle tout seul!</p>
+<p style="font-size:12px;text-align:center;margin:0">🌐 GOOGLE TRAD -> FREDDY</p>
+<button style="background:#4285F4;color:#fff" onclick="ouvrirGoogle()">🌐 1. OUVRIR GOOGLE TRAD + COPIER FR</button>
+<div id="autoMsg" class="auto"></div>
+<textarea id="textFinal" rows="4" placeholder="Traduction FR auto ici..." style="border:2px solid #00ff88;background:#0a2a1a;font-size:15px;font-weight:bold"></textarea>
+
+<button id="parleBtn" style="background:#ff9800;color:#000;border:2px solid #fff" onclick="parlerFrancais()">🔊 PARLER EN FRANÇAIS POUR FREDDY</button>
+<button style="background:#111b21;color:#aaa;font-size:11px;padding:8px" onclick="arreterParler()">⏹️ Arrêter voix</button>
 </div>
 
-<button style="background:#25D366;font-size:17px;padding:16px;border:3px solid #fff" onclick="envoyerFreddy()">📲 2. ENVOYER À FREDDY EN FRANÇAIS</button>
-<p style="font-size:9px;color:#666;text-align:center">Version finale auto-paste - Freddy Makola 0983356734</p>
+<button style="background:#25D366;font-size:17px;padding:16px;border:3px solid #fff;margin-top:10px" onclick="envoyerFreddy()">📲 2. ENVOYER À FREDDY EN FR</button>
 </div>
 
 <script>
 let isRecording=false, finalTranscript="", lastOriginal="", startTime, timerInterval, recognition, mediaRecorder;
-
-// VOICE 10 MIN
 async function toggleRecord(){
  let btn=document.getElementById('micBtn');
  if(isRecording){ stopRecord(); return; }
  try{
   let stream=await navigator.mediaDevices.getUserMedia({audio:true});
   finalTranscript=""; startTime=Date.now(); isRecording=true; btn.classList.add('rec'); btn.textContent='⏹️';
-  document.getElementById('status').textContent='🔴 Enregistrement 10 min... Parle!'; document.getElementById('status').style.color='red';
+  document.getElementById('status').textContent='🔴 10 min... Parle!'; document.getElementById('status').style.color='red';
   mediaRecorder=new MediaRecorder(stream); mediaRecorder.start(1000);
   startSpeechRecognition();
   timerInterval=setInterval(()=>{ let el=Math.floor((Date.now()-startTime)/1000); if(el>=600){stopRecord();return;} let m=Math.floor(el/60),s=el%60; document.getElementById('timer').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')} / 10:00`; },1000);
   setTimeout(()=>{if(isRecording) stopRecord();},600000);
- }catch(e){alert('Micro refusé, utilise Chrome');}
+ }catch(e){alert('Micro refusé');}
 }
 function startSpeechRecognition(){
- if(!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)){ alert('Chrome seulement pour voice'); return; }
+ if(!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)){ alert('Chrome only'); return; }
  let SR=window.SpeechRecognition||window.webkitSpeechRecognition; recognition=new SR(); recognition.lang=''; recognition.continuous=true; recognition.interimResults=true;
  recognition.onresult=(e)=>{
   let interim="", tempFinal=""; for(let i=e.resultIndex;i<e.results.length;i++){ if(e.results[i].isFinal) tempFinal+=e.results[i][0].transcript+" "; else interim+=e.results[i][0].transcript; }
   if(tempFinal) finalTranscript+=tempFinal; let display=finalTranscript+interim; lastOriginal=display;
-  let orig=document.getElementById('voiceOriginal'); orig.style.display='block'; orig.innerHTML='<b>🎤 Original
+  let orig=document.getElementById('voiceOriginal'); orig.style.display='block'; orig.innerHTML='<b>🎤 Original:</b>\n'+display;
+  document.getElementById('textOriginal').value=display;
+ };
+ recognition.onend=()=>{ if(isRecording){ try{recognition.start();}catch(e){} } };
+ recognition.onerror=()=>{ if(isRecording) setTimeout(()=>{try{recognition.start();}catch(e){}},500); };
+ try{recognition.start();}catch(e){}
+}
+function stopRecord(){ isRecording=false; document.getElementById('micBtn').classList.remove('rec'); document.getElementById('micBtn').textContent='🎤'; document.getElementById('status').textContent='✅ Voice fini'; document.getElementById('status').style.color='#25D366'; clearInterval(timerInterval); if(mediaRecorder&&mediaRecorder.state!=='inactive') mediaRecorder.stop(); if(recognition) try{recognition.stop();}catch(e){} }
+function ouvrirGoogle(){
+ let text=document.getElementById('textOriginal').value||lastOriginal;
+ if(!text.trim()){ alert('Parle ou écris d\'abord'); return; }
+ lastOriginal=text;
+ let url=`https://translate.google.com/m?sl=auto&tl=fr&q=${encodeURIComponent(text.substring(0,3500))}`;
+ window.open(url, '_blank');
+ document.getElementById('textFinal').placeholder="Sur Google, copie le FRANÇAIS en bas. Reviens ici, ça se colle tout seul!";
+}
+document.addEventListener('visibilitychange', async ()=>{
+ if(document.visibilityState==='visible'){
+  try{
+   let clip=await navigator.clipboard.readText();
+   if(clip && clip.length>2 && clip.length<5000 && clip!==lastOriginal){
+    if(clip!==document.getElementById('textOriginal').value){
+     document.getElementById('textFinal').value=clip;
+     let msg=document.getElementById('autoMsg'); msg.style.display='block'; msg.textContent='✅ Français collé auto! Clique PARLER pour écouter';
+     setTimeout(()=>{msg.style.display='none';},4000);
+     if(navigator.vibrate) navigator.vibrate([100,50,100]);
+     // Parle automatiquement
+     setTimeout(()=>parlerFrancais(),800);
+    }
+   }
+  }catch(e){}
+ }
+});
+function parlerFrancais(){
+ let text=document.getElementById('textFinal').value.trim();
+ if(!text){ alert('Pas de français à parler - Traduis d\'abord'); return; }
+ if('speechSynthesis' in window){
+  speechSynthesis.cancel();
+  let utter=new SpeechSynthesisUtterance(text);
+  utter.lang='fr-FR'; utter.rate=0.9; utter.pitch=1;
+  let voices=speechSynthesis.getVoices();
+  let frVoice=voices.find(v=>v.lang.includes('fr'));
+  if(frVoice) utter.voice=frVoice;
+  utter.onstart=()=>{ document.getElementById('parleBtn').textContent='🔊 PARLE EN FRANÇAIS... 🔊'; document.getElementById('parleBtn').style.background='#00ff88'; };
+  utter.onend=()=>{ document.getElementById('parleBtn').textContent='🔊 PARLER EN FRANÇAIS POUR FREDDY'; document.getElementById('parleBtn').style.background='#ff9800'; };
+  speechSynthesis.speak(utter);
+ }else{ alert('Lecture vocale non supportée'); }
+}
+function arreterParler(){ if('speechSynthesis' in window) speechSynthesis.cancel(); document.getElementById('parleBtn').textContent='🔊 PARLER EN FRANÇAIS POUR FREDDY'; document.getElementById('parleBtn').style.background='#ff9800'; }
+function envoyerFreddy(){
+ let nom=document.getElementById('nom').value||"Client"; let job=document.getElementById('job').value;
+ let finalText=document.getElementById('textFinal').value.trim();
+ if(!finalText){ alert('Traduis d\'abord'); return; }
+ let original=lastOriginal||document.getElementById('textOriginal').value;
+ let msg=`Client: ${nom}\nMétier: ${job}\n\n🇫🇷 EN FRANÇAIS POUR FREDDY:\n${finalText}\n\n📝 ORIGINAL:\n${original}`;
+ window.open('https://wa.me/243983356734?text='+encodeURIComponent(msg),'_blank');
+}
+if('speechSynthesis' in window){ speechSynthesis.getVoices(); }
+</script></body></html>
