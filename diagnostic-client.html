@@ -1,134 +1,89 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Freddy Google Officiel</title><style>body{margin:0;background:#0b141a;color:#fff;font-family:sans-serif;padding:10px} .card{background:#202c33;padding:14px;border-radius:15px;max-width:500px;margin:0 auto;border-top:4px solid #4285F4} h1{color:#4285F4;text-align:center;margin:0;font-size:14px} button{width:100%;padding:13px;border-radius:10px;border:none;font-weight:bold;margin-top:6px;cursor:pointer} .box{background:#111b21;padding:12px;border-radius:12px;margin:8px 0;border:2px solid #4285F4;text-align:center} .mic{width:90px;height:90px;border-radius:50%;background:#25D366;border:3px solid #fff;color:#fff;font-size:36px;display:block;margin:10px auto} .mic.rec{background:red;animation:pulse 1s infinite} @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.15)}100%{transform:scale(1)}} .result{background:#1a3a4a;padding:12px;border-radius:8px;margin-top:8px;font-size:14px;white-space:pre-wrap;text-align:left;min-height:20px} .trad{background:#005c4b;border:2px solid #00ff88} input,select,textarea{width:100%;padding:12px;margin:5px 0;border-radius:10px;border:none;background:#2a3942;color:#fff;box-sizing:border-box} .timer{color:#25D366;font-weight:bold;font-size:20px} #google_translate_element{display:none}</style></head><body>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Freddy Final Simple FR</title><style>body{margin:0;background:#0b141a;color:#fff;font-family:sans-serif;padding:12px} .card{background:#202c33;padding:16px;border-radius:16px;max-width:480px;margin:auto;border-top:4px solid #25D366} h1{color:#25D366;text-align:center;font-size:16px;margin:0} button{width:100%;padding:14px;border-radius:10px;border:none;font-weight:bold;margin-top:8px} .mic{width:90px;height:90px;border-radius:50%;background:#25D366;border:3px solid #fff;color:#fff;font-size:34px;display:block;margin:12px auto} .mic.rec{background:red} .box{background:#111b21;padding:12px;border-radius:12px;border:2px solid #25D366;margin:10px 0;text-align:center} .r{background:#1a3a4a;padding:12px;border-radius:10px;margin-top:8px;font-size:14px;white-space:pre-wrap;text-align:left} .t{background:#005c4b;border-left:4px solid #00ff88} input,select,textarea{width:100%;padding:12px;margin:6px 0;border-radius:10px;border:none;background:#2a3942;color:#fff;box-sizing:border-box} .timer{color:#25D366;font-weight:bold}</style></head><body>
 <div class="card">
-<h1>🔵 GOOGLE TRAD OFFICIEL INTÉGRÉ - VRAI FR</h1>
-<p style="text-align:center;color:#aaa;font-size:9px">Méthode officielle Google - Ne bloque jamais</p>
-<div id="google_translate_element"></div>
+<h1>🎤 VOIX AUTO -> FRANÇAIS AUTO</h1>
 
-<input id="nom" placeholder="Ton nom"><select id="job"><option>⚡ Électricité</option><option>🧱 Maçonnerie</option><option>🔧 Mécanique</option><option>📱 Électronique</option></select>
+<input id="nom" placeholder="Ton nom">
+<select id="fromLang"><option value="auto">🌐 Détecter auto</option><option value="zh">🇨🇳 Chinois</option><option value="en">🇬🇧 Anglais</option><option value="sw">🇹🇿 Swahili</option><option value="ln">🇨🇩 Lingala</option></select>
+<select id="job"><option>⚡ Électricité</option><option>🧱 Maçonnerie</option><option>🔧 Mécanique</option><option>📱 Électronique</option></select>
 
 <div class="box">
 <div class="timer" id="timer">00:00 / 10:00</div>
-<p id="status" style="font-size:11px;color:#aaa">Parle dans ta langue -> Google traduit auto</p>
+<p id="status" style="font-size:11px;color:#aaa">Clique micro et parle</p>
 <button class="mic" id="micBtn" onclick="toggleRecord()">🎤</button>
-<div id="original" class="result" style="display:none"></div>
-<div style="background:#4285F4;padding:6px;border-radius:5px;margin-top:8px;font-size:11px">TRADUCTION GOOGLE OFFICIELLE EN DESSOUS:</div>
-<div id="translated" class="result trad">La traduction française apparaîtra ici...</div>
+<div id="original" class="r" style="display:none"></div>
+<div id="translated" class="r t" style="display:none">Traduction FR ici...</div>
 </div>
 
-<textarea id="textOriginal" rows="2" placeholder="Ou écris ici..." style="display:none"></textarea>
-<textarea id="textFinal" rows="4" placeholder="Copie ici la traduction française du haut si besoin..." style="border:2px solid #00ff88;background:#0a2a1a;font-size:15px;display:none"></textarea>
+<textarea id="textOriginal" rows="3" placeholder="Ou écris dans ta langue ici..."></textarea>
+<button style="background:#4285F4" onclick="tradFromText()">🔵 TRADUIRE EN FRANÇAIS MAINTENANT</button>
 
-<button style="background:#ff9800" onclick="copierTradGoogle()">📋 COPIER LA TRADUCTION GOOGLE</button>
-<button style="background:#00ff88;color:#000" onclick="parlerFrancais()">🔊 ÉCOUTER EN FRANÇAIS</button>
-<button style="background:#25D366;font-size:16px;padding:16px;border:3px solid #fff" onclick="envoyerFreddy()">📲 ENVOYER À FREDDY</button>
+<textarea id="textFinal" rows="4" placeholder="Français final ici..." style="border:2px solid #00ff88;background:#0a2a1a;font-size:16px;font-weight:bold"></textarea>
+
+<button style="background:#ff9800" onclick="parlerFrancais()">🔊 ÉCOUTER FR</button>
+<button style="background:#25D366;font-size:17px;padding:16px;border:3px solid #fff" onclick="envoyerFreddy()">📲 ENVOYER À FREDDY</button>
 </div>
 
-<!-- GOOGLE TRANSLATE OFFICIEL -->
 <script>
 let isRecording=false, finalTranscript="", lastOriginal="", startTime, timerInterval, recognition, mediaRecorder;
 
-// CHARGER GOOGLE TRANSLATE WIDGET OFFICIEL
-function googleTranslateElementInit(){
- new google.translate.TranslateElement({pageLanguage:'auto', includedLanguages:'fr', autoDisplay:false}, 'google_translate_element');
- // Forcer français après chargement
- setTimeout(()=>{ 
-  let select=document.querySelector('.goog-te-combo');
-  if(select){ select.value='fr'; select.dispatchEvent(new Event('change')); }
- },1000);
-}
-
 async function toggleRecord(){
- let btn=document.getElementById('micBtn');
+ let b=document.getElementById('micBtn');
  if(isRecording){ stopRecord(); return; }
  try{
-  let stream=await navigator.mediaDevices.getUserMedia({audio:true});
-  finalTranscript=""; lastOriginal=""; startTime=Date.now(); isRecording=true; btn.classList.add('rec'); btn.textContent='⏹️';
-  document.getElementById('status').textContent='🔴 Écoute 10 min...'; document.getElementById('status').style.color='red';
-  mediaRecorder=new MediaRecorder(stream); mediaRecorder.start(1000);
+  let s=await navigator.mediaDevices.getUserMedia({audio:true});
+  finalTranscript=""; lastOriginal=""; startTime=Date.now(); isRecording=true; b.classList.add('rec'); b.textContent='⏹️';
+  document.getElementById('status').textContent='🔴 Écoute... Parle!'; document.getElementById('status').style.color='red';
+  mediaRecorder=new MediaRecorder(s); mediaRecorder.start();
   startSpeech();
-  timerInterval=setInterval(()=>{ let el=Math.floor((Date.now()-startTime)/1000); if(el>=600){stopRecord();return;} let m=Math.floor(el/60),s=el%60; document.getElementById('timer').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')} / 10:00`; },1000);
+  timerInterval=setInterval(()=>{ let e=Math.floor((Date.now()-startTime)/1000); if(e>=600){stopRecord();return;} let m=Math.floor(e/60),ss=e%60; document.getElementById('timer').textContent=`${String(m).padStart(2,'0')}:${String(ss).padStart(2,'0')} / 10:00`; },1000);
   setTimeout(()=>{if(isRecording) stopRecord();},600000);
- }catch(e){alert('Micro refusé');}
+ }catch(e){alert('Micro refusé, utilise Chrome');}
 }
-
 function startSpeech(){
- if(!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)){ alert('Chrome only'); return; }
- let SR=window.SpeechRecognition||window.webkitSpeechRecognition; recognition=new SR();
- recognition.lang=''; recognition.continuous=true; recognition.interimResults=true;
+ let SR=window.SpeechRecognition||window.webkitSpeechRecognition; if(!SR){ alert('Chrome only'); return; }
+ recognition=new SR(); recognition.lang=''; recognition.continuous=true; recognition.interimResults=true;
  recognition.onresult=(e)=>{
-  let interim="", tempFinal=""; for(let i=e.resultIndex;i<e.results.length;i++){ if(e.results[i].isFinal) tempFinal+=e.results[i][0].transcript+" "; else interim+=e.results[i][0].transcript; }
-  if(tempFinal) finalTranscript+=tempFinal; let display=(finalTranscript+interim).trim(); if(!display) return; lastOriginal=display;
-  let orig=document.getElementById('original'); orig.style.display='block'; orig.innerHTML='<b>🎤 Tu dis:</b> '+display+'<br><small style="color:#00ff88">👇 Google traduit ci-dessous auto</small>';
+  let inter="", fin=""; for(let i=e.resultIndex;i<e.results.length;i++){ if(e.results[i].isFinal) fin+=e.results[i][0].transcript+" "; else inter+=e.results[i][0].transcript; }
+  if(fin) finalTranscript+=fin; let display=(finalTranscript+inter).trim(); if(!display) return; lastOriginal=display;
+  let o=document.getElementById('original'); o.style.display='block'; o.innerHTML='<b>🎤 Tu dis:</b> '+display;
   document.getElementById('textOriginal').value=display;
-  // Mettre le texte dans la zone traduite - Google widget va le traduire auto
-  document.getElementById('translated').innerHTML=display;
-  // Déclencher traduction Google
-  setTimeout(()=>forceGoogleToFrench(),500);
-  setTimeout(()=>forceGoogleToFrench(),1500);
+  clearTimeout(window.t1); window.t1=setTimeout(()=>{ traduire(display); },1200);
  };
- recognition.onend=()=>{ if(isRecording){ try{recognition.start();}catch(e){} } else { if(finalTranscript.trim()){ document.getElementById('translated').innerHTML=finalTranscript.trim(); setTimeout(()=>forceGoogleToFrench(),500); } } };
- recognition.onerror=()=>{ if(isRecording) setTimeout(()=>{try{recognition.start();}catch(e){}},800); };
+ recognition.onend=()=>{ if(isRecording) try{recognition.start();}catch(e){} };
  try{recognition.start();}catch(e){}
 }
-function stopRecord(){ isRecording=false; document.getElementById('micBtn').classList.remove('rec'); document.getElementById('micBtn').textContent='🎤'; document.getElementById('status').textContent='✅ Fini - Traduction Google...'; document.getElementById('status').style.color='#00ff88'; clearInterval(timerInterval); if(mediaRecorder&&mediaRecorder.state!=='inactive') mediaRecorder.stop(); if(recognition) try{recognition.stop();}catch(e){} }
+function stopRecord(){ isRecording=false; document.getElementById('micBtn').classList.remove('rec'); document.getElementById('micBtn').textContent='🎤'; document.getElementById('status').textContent='✅ Voice fini'; clearInterval(timerInterval); if(mediaRecorder&&mediaRecorder.state!=='inactive') mediaRecorder.stop(); if(recognition) try{recognition.stop();}catch(e){} if(finalTranscript.trim()) traduire(finalTranscript.trim()); }
 
-function forceGoogleToFrench(){
- try{
-  let select=document.querySelector('.goog-te-combo');
-  if(select){
-   select.value='fr';
-   select.dispatchEvent(new Event('change'));
-   // Retraduire le contenu
-   let translated=document.getElementById('translated');
-   // Google traduit automatiquement la page, on laisse faire
-  }
-  // Méthode alternative: utiliser l'API Google via l'iframe
-  let iframe=document.querySelector('iframe.goog-te-menu-frame');
-  if(!iframe){
-   // Si widget pas chargé, on utilise la méthode fetch avec proxy qui marche en Afrique
-   googleViaProxy(lastOriginal);
-  }
- }catch(e){ googleViaProxy(lastOriginal); }
-}
+async function traduire(text){
+ if(!text) return; let fl=document.getElementById('fromLang').value; let td=document.getElementById('translated'); let tf=document.getElementById('textFinal');
+ td.style.display='block'; td.innerHTML='🔄 Traduction vers Français...';
+ let source=fl==='auto'?'auto':fl;
+ let result=null;
 
-// FALLBACK PROXY QUI MARCHE EN RDC
-async function googleViaProxy(text){
- if(!text) return;
+ // 1. MyMemory - marche toujours en RDC
  try{
-  // Utiliser translate api qui marche en Afrique
-  let url=`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text.substring(0,500))}&langpair=auto|fr`;
+  let url=`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text.substring(0,500))}&langpair=${source}|fr`;
   let r=await fetch(url); let d=await r.json();
-  if(d.responseData && d.responseData.translatedText){
-   // Améliorer avec correction basique
-   let trad=d.responseData.translatedText;
-   document.getElementById('translated').innerHTML=`<b>✅ FR (Google Quality):</b><br>${trad}<br><small style="color:#aaa">Original: ${text}</small>`;
+  if(d.responseData && d.responseData.translatedText && d.responseData.translatedText.length>2){
+   // Si MyMemory renvoie même texte, on essaie autre
+   if(d.responseData.translatedText.toLowerCase()!==text.toLowerCase().substring(0,500)){
+    result=d.responseData.translatedText; td.innerHTML=`<b>✅ FR:</b><br>${result}`;
+   }
   }
  }catch(e){}
+
+ // 2. Si pas bon, LibreTranslate
+ if(!result){
+  try{
+   let r=await fetch('https://libretranslate.com/translate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({q:text.substring(0,500),source:source==='auto'?'auto':source,target:'fr',format:'text'})});
+   let d=await r.json(); if(d.translatedText){ result=d.translatedText; td.innerHTML=`<b>✅ FR:</b><br>${result}`; }
+  }catch(e){}
+ }
+
+ if(result){ tf.value=result; setTimeout(parlerFrancais,500); } else { td.innerHTML=`⚠️ Pas traduit. J'envoie original. <br>${text}`; tf.value=text; }
 }
 
-function copierTradGoogle(){
- let trad=document.getElementById('translated').innerText.replace('✅ FR (Google Quality):','').replace('Original:','').trim();
- // Prendre seulement la première ligne (traduction)
- let lines=trad.split('\n'); let french=lines[0]||trad;
- document.getElementById('textFinal').style.display='block';
- document.getElementById('textFinal').value=french;
- alert('✅ Traduction copiée: '+french.substring(0,80));
-}
-
-function parlerFrancais(){
- let text=document.getElementById('translated').innerText||document.getElementById('textFinal').value;
- text=text.replace('✅ FR (Google Quality):','').split('\n')[0].trim();
- if(!text) return;
- if('speechSynthesis' in window){ speechSynthesis.cancel(); let u=new SpeechSynthesisUtterance(text); u.lang='fr-FR'; u.rate=0.9; let vs=speechSynthesis.getVoices(); let fr=vs.find(v=>v.lang.includes('fr')); if(fr) u.voice=fr; speechSynthesis.speak(u); }
-}
-function envoyerFreddy(){
- let nom=document.getElementById('nom').value||"Client"; let job=document.getElementById('job').value;
- let finalText=document.getElementById('textFinal').value||document.getElementById('translated').innerText.split('\n')[0];
- finalText=finalText.replace('✅ FR (Google Quality):','').trim();
- if(!finalText || finalText.includes('apparaîtra')){ alert('Parle d\'abord et clique COPIER'); return; }
- let msg=`Client: ${nom}\nMétier: ${job}\n\n🇫🇷 GOOGLE FR:\n${finalText}\n\n📝 ORIGINAL:\n${lastOriginal}`;
- window.open('https://wa.me/243983356734?text='+encodeURIComponent(msg),'_blank');
-}
-</script>
-<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-</body></html>
+function tradFromText(){ let t=document.getElementById('textOriginal').value; if(t) traduire(t); }
+function parlerFrancais(){ let t=document.getElementById('textFinal').value.trim(); if(!t) return; if('speechSynthesis' in window){ speechSynthesis.cancel(); let u=new SpeechSynthesisUtterance(t); u.lang='fr-FR'; u.rate=0.9; speechSynthesis.speak(u); } }
+function envoyerFreddy(){ let nom=document.getElementById('nom').value||"Client"; let job=document.getElementById('job').value; let finalText=document.getElementById('textFinal').value.trim(); if(!finalText){ alert('Parle ou écris d\'abord'); return; } let msg=`Client: ${nom}\nMétier: ${job}\n\n🇫🇷 FR:\n${finalText}\n\n📝 ORIGINAL:\n${lastOriginal||document.getElementById('textOriginal').value}`; window.open('https://wa.me/243983356734?text='+encodeURIComponent(msg),'_blank'); }
+</script></body></html>
