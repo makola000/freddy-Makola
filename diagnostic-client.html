@@ -1,0 +1,54 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Envoyer Panne à Freddy Makola</title><style>body{margin:0;background:#0b141a;color:#fff;font-family:sans-serif;padding:15px} .card{background:#202c33;padding:18px;border-radius:15px;max-width:450px;margin:0 auto;border-top:3px solid #25D366} h1{color:#25D366;margin:0;text-align:center} input,select,textarea{width:100%;padding:14px;margin:8px 0;border-radius:10px;border:none;background:#2a3942;color:#fff;box-sizing:border-box;font-size:15px} button{width:100%;padding:16px;border-radius:12px;border:none;background:#25D366;color:#fff;font-weight:bold;font-size:16px;margin-top:10px} #preview{max-width:100%;border-radius:10px;display:none;margin-top:10px}</style></head><body>
+<div class="card">
+<h1>FREDDY MAKOLA</h1>
+<p style="text-align:center;color:#aaa;font-size:13px">Technicien Chercheur - Lubumbashi<br>Envoie photo de ta panne</p>
+
+<select id="job"><option value="Électricité">⚡ Électricité</option><option value="Maçonnerie">🧱 Maçonnerie</option><option value="Mécanique">🔧 Mécanique</option><option value="Électronique">📱 Électronique</option></select>
+<select id="panne"><option>Coupure totale</option><option>Prise qui chauffe</option><option>Disjoncteur saute</option><option>Mur fissuré</option><option>Moteur ne démarre pas</option><option>Téléphone écran noir</option><option>Autre</option></select>
+<input id="nom" placeholder="Ton nom">
+<input id="tel" placeholder="Ton numéro WhatsApp 243...">
+<textarea id="desc" rows="3" placeholder="Décris la panne... Ex: Ma prise sent le brûlé depuis hier"></textarea>
+
+<label style="font-size:12px;color:#25D366">📸 PHOTO DE LA PANNE (très important):</label>
+<input type="file" id="photo" accept="image/*" capture="environment" onchange="showPreview(this)">
+<img id="preview">
+
+<div id="iaResult" style="display:none;background:#1a3a4a;padding:12px;border-radius:10px;margin-top:12px;font-size:13px"></div>
+
+<button style="background:#ff9800" onclick="faireDiag()">🔍 Analyser Panne avec IA</button>
+<button onclick="envoyerFreddy()">📲 Envoyer à Freddy sur WhatsApp</button>
+
+<p style="font-size:11px;color:#888;text-align:center;margin-top:12px">Après analyse, clique sur Envoyer. Ta photo sera à envoyer manuellement dans WhatsApp qui va s'ouvrir. Freddy te répond en 5 min.</p>
+</div>
+<script>
+let photoData = null;
+function showPreview(input){
+ if(input.files[0]){
+  let r = new FileReader();
+  r.onload = e => {
+   document.getElementById('preview').src = e.target.result;
+   document.getElementById('preview').style.display='block';
+   photoData = e.target.result;
+  };
+  r.readAsDataURL(input.files[0]);
+ }
+}
+function faireDiag(){
+ let j = document.getElementById('job').value;
+ let p = document.getElementById('panne').value;
+ let d = document.getElementById('desc').value;
+ let res = document.getElementById('iaResult');
+ let prix = j=="Électricité"?"15-25$":j=="Maçonnerie"?"Devis gratuit sur place":j=="Mécanique"?"25$ diag":"5-20$";
+ res.style.display='block';
+ res.innerHTML=`<b>🤖 IA Freddy - Diagnostic ${j}:</b><br><br>Panne: ${p}<br>Détail: ${d}<br><br><b>Analyse:</b> ${j=="Électricité"?"Court-circuit probable, couper courant.":"Besoin intervention rapide."}<br><br><b style="color:#25D366">Prix estimé: ${prix}</b><br><br>📸 Photo: ${photoData?"✅ Photo jointe":"❌ Ajoute photo pour meilleur diag"}`;
+ window._diagText = `PANNE ${j} - ${p} - ${d} - Prix ${prix}`;
+}
+function envoyerFreddy(){
+ let nom = document.getElementById('nom').value || "Client";
+ let tel = document.getElementById('tel').value;
+ let job = document.getElementById('job').value;
+ let msg = `Bonjour Freddy Makola!\n\nJe suis ${nom} (${tel})\n\n🔧 Métier: ${job}\n${window._diagText || document.getElementById('desc').value}\n\nJ'ai une photo de la panne (je l'envoie juste après ce message).\n\nMerci!\n\nEnvoyé depuis: https://makola000.github.io/freddy-Makola/diagnostic-client.html`;
+ window.open('https://wa.me/243983356734?text='+encodeURIComponent(msg), '_blank');
+ setTimeout(()=>{alert("WhatsApp s'ouvre.\n\nIMPORTANT:\n1. Envoie d'abord le message texte\n2. Après, WhatsApp va s'ouvrir sur ta discussion avec Freddy\n3. Clique sur 📎 trombone > Galerie > Choisis la même photo de la panne et envoie-la.\n\nComme ça Freddy reçoit texte + photo.");}, 800);
+}
+</script></body></html>
