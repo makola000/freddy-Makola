@@ -1,35 +1,42 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Voice 10Min Trad Fiable - Freddy</title><style>body{margin:0;background:#0b141a;color:#fff;font-family:sans-serif;padding:10px} .card{background:#202c33;padding:14px;border-radius:15px;max-width:500px;margin:0 auto;border-top:4px solid #25D366} h1{color:#25D366;text-align:center;margin:0;font-size:20px} button{width:100%;padding:14px;border-radius:10px;border:none;font-weight:bold;margin-top:6px;cursor:pointer;font-size:13px} .voice{background:#111b21;padding:12px;border-radius:12px;margin:10px 0;border:2px solid #25D366;text-align:center} .mic{width:85px;height:85px;border-radius:50%;background:#25D366;border:3px solid #fff;color:#fff;font-size:36px} .mic.rec{background:red;animation:pulse 1s infinite} @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.15)}100%{transform:scale(1)}} .timer{font-size:28px;color:#25D366;font-weight:bold} .result{background:#1a3a4a;padding:10px;border-radius:8px;margin-top:8px;font-size:14px;max-height:300px;overflow:auto;white-space:pre-wrap;display:none} input,select,textarea{width:100%;padding:12px;margin:5px 0;border-radius:10px;border:none;background:#2a3942;color:#fff;box-sizing:border-box} .step{background:#111b21;padding:8px;border-radius:8px;margin:5px 0;border-left:3px solid #25D366;font-size:12px}</style></head><body>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Freddy - Voice + Texte Trad</title><style>body{margin:0;background:#0b141a;color:#fff;font-family:sans-serif;padding:10px} .card{background:#202c33;padding:14px;border-radius:15px;max-width:500px;margin:0 auto;border-top:4px solid #25D366} h1{color:#25D366;text-align:center;margin:0;font-size:20px} h2{color:#25D366;font-size:14px;margin:15px 0 5px 0;border-left:3px solid #25D366;padding-left:8px} button{width:100%;padding:13px;border-radius:10px;border:none;font-weight:bold;margin-top:6px;cursor:pointer} .box{background:#111b21;padding:12px;border-radius:12px;margin:8px 0;border:1px solid #333} .mic{width:80px;height:80px;border-radius:50%;background:#25D366;border:3px solid #fff;color:#fff;font-size:32px;display:block;margin:10px auto} .mic.rec{background:red;animation:pulse 1s infinite} @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.15)}100%{transform:scale(1)}} .result{background:#1a3a4a;padding:10px;border-radius:8px;margin-top:8px;font-size:13px;white-space:pre-wrap;display:none} input,select,textarea{width:100%;padding:12px;margin:5px 0;border-radius:10px;border:none;background:#2a3942;color:#fff;box-sizing:border-box} .timer{color:#25D366;font-weight:bold;text-align:center}</style></head><body>
 <div class="card">
-<h1>🎤 VOICE 10 MIN - TRAD 100%</h1>
-<p style="text-align:center;color:#aaa;font-size:11px">Voice long + traduction fiable même en Chine</p>
+<h1>FREDDY MAKOLA</h1>
+<p style="text-align:center;color:#aaa;font-size:11px">2 façons d'envoyer - Voice ou Texte - Traduit en Français pour Freddy</p>
 
-<select id="langFrom"><option value="auto">🌍 Parle dans ta langue (auto)</option><option value="zh">🇨🇳 Mandarin</option><option value="en">🇺🇸 Anglais</option><option value="sw">Swahili</option><option value="fr">Français</option></select>
+<input id="nom" placeholder="Ton nom (ex: Mama Chinese)">
+<select id="job"><option>⚡ Électricité</option><option>🧱 Maçonnerie</option><option>🔧 Mécanique</option><option>📱 Électronique</option></select>
+<select id="langFrom"><option value="auto">🌍 Ta langue (auto)</option><option value="zh">🇨🇳 Mandarin</option><option value="en">🇺🇸 Anglais</option><option value="sw">Swahili</option><option value="fr">Français</option></select>
 
-<div class="voice">
+<!-- PARTIE 1 : VOICE -->
+<h2>🎤 PARTIE 1: ENVOYER UN VOICE (10 min max)</h2>
+<div class="box" style="text-align:center;border-color:#25D366">
 <div class="timer" id="timer">00:00 / 10:00</div>
-<p id="status" style="font-size:12px">Appuie pour parler jusqu'à 10 min</p>
+<p id="status" style="font-size:12px">Appuie sur le micro, parle, rappuie pour arrêter</p>
 <button class="mic" id="micBtn" onclick="toggleRecord()">🎤</button>
-<div id="original" class="result"></div>
-<div id="translated" class="result" style="background:#005c4b"></div>
+<div id="voiceOriginal" class="result"></div>
+<div id="voiceTrad" class="result" style="background:#005c4b"></div>
+<button style="background:#4285F4" onclick="traduireVoice()">🌐 Traduire mon voice en Français</button>
+<button style="background:#111b21;border:1px solid #25D366;color:#25D366" onclick="ouvrirGoogle('voice')">🔗 Ouvrir sur Google Trad (si auto échoue)</button>
 </div>
 
-<div class="step">ÉTAPE 1: Parle 10 min -> Texte apparaît</div>
-<div class="step">ÉTAPE 2: Clique "TRADUIRE SUR GOOGLE" -> Google traduit en FR</div>
-<div class="step">ÉTAPE 3: Copie le français et colle ici, puis ENVOYER À FREDDY</div>
+<!-- PARTIE 2 : TEXTE -->
+<h2>✍️ PARTIE 2: ÉCRIRE UN TEXTE (traduction auto)</h2>
+<div class="box" style="border-color:#ff9800">
+<p style="font-size:11px;color:#aaa">Écris dans ta langue, ça sera traduit en français pour Freddy</p>
+<textarea id="textOriginal" rows="4" placeholder="Ex: 我的插座坏了 / My socket is broken / Écris ici dans ta langue..."></textarea>
+<div id="textTrad" class="result" style="background:#005c4b"></div>
+<button style="background:#ff9800" onclick="traduireTexte()">🌐 Traduire mon texte en Français</button>
+<button style="background:#111b21;border:1px solid #ff9800;color:#ff9800" onclick="ouvrirGoogle('texte')">🔗 Ouvrir sur Google Trad</button>
+<textarea id="textFinal" rows="3" placeholder="La traduction française apparaîtra ici - Tu peux modifier avant d'envoyer" style="border:2px solid #25D366"></textarea>
+</div>
 
-<input id="nom" placeholder="Ton nom">
-<select id="job"><option>⚡ Électricité</option><option>🧱 Maçonnerie</option><option>🔧 Mécanique</option><option>📱 Électronique</option></select>
-<textarea id="desc" rows="4" placeholder="Ton texte original apparaîtra ici... puis tu colleras la traduction française ici"></textarea>
+<button style="background:#25D366;font-size:16px;padding:16px" onclick="envoyerFreddy()">📲 ENVOYER À FREDDY EN FRANÇAIS</button>
 
-<button style="background:#4285F4;color:#fff" onclick="ouvrirGoogleTrad()">🌐 ÉTAPE 2: TRADUIRE SUR GOOGLE (100% fiable)</button>
-<button style="background:#ff9800" onclick="traduireAuto()">🤖 Essayer trad auto (peut échouer)</button>
-<button style="background:#25D366;font-size:16px" onclick="envoyerFreddy()">📲 ÉTAPE 3: ENVOYER À FREDDY EN FR</button>
-
-<p style="font-size:10px;color:#888;text-align:center">Même si trad auto échoue, Google Trad ne rate JAMAIS pour mandarin, anglais, swahili...</p>
+<p style="font-size:10px;color:#666;text-align:center">Voice + Texte = tout arrive en français chez Freddy 0983356734</p>
 </div>
 
 <script>
-let isRecording=false, finalTranscript="", lastOriginal="", lastTranslated="", startTime, timerInterval, recognition, mediaRecorder;
+let isRecording=false, finalTranscript="", lastVoice="", lastVoiceTrad="", lastTextTrad="", startTime, timerInterval, recognition, mediaRecorder;
 
 async function toggleRecord(){
  let btn=document.getElementById('micBtn');
@@ -37,60 +44,69 @@ async function toggleRecord(){
  try{
   let stream=await navigator.mediaDevices.getUserMedia({audio:true});
   finalTranscript=""; startTime=Date.now(); isRecording=true; btn.classList.add('rec'); btn.textContent='⏹️';
-  document.getElementById('status').textContent='🔴 ENREGISTREMENT 10 MIN... Parle!'; document.getElementById('status').style.color='red';
+  document.getElementById('status').textContent='🔴 Enregistrement... Parle longtemps!'; document.getElementById('status').style.color='red';
   mediaRecorder=new MediaRecorder(stream); mediaRecorder.start(1000);
   startSpeechRecognition();
   timerInterval=setInterval(()=>{ let el=Math.floor((Date.now()-startTime)/1000); if(el>=600){stopRecord();return;} let m=Math.floor(el/60),s=el%60; document.getElementById('timer').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')} / 10:00`; },1000);
   setTimeout(()=>{if(isRecording) stopRecord();},600000);
- }catch(e){alert('Micro refusé');}
+ }catch(e){alert('Micro refusé, utilise Chrome');}
 }
 function startSpeechRecognition(){
- if(!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)){ alert('Utilise Chrome pour voice'); return; }
+ if(!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)){ alert('Voice marche seulement sur Chrome'); return; }
  let SR=window.SpeechRecognition||window.webkitSpeechRecognition; recognition=new SR();
  let lang=document.getElementById('langFrom').value; recognition.lang=lang==='auto'?'':lang; recognition.continuous=true; recognition.interimResults=true;
  recognition.onresult=(e)=>{
   let interim="", tempFinal=""; for(let i=e.resultIndex;i<e.results.length;i++){ if(e.results[i].isFinal) tempFinal+=e.results[i][0].transcript+" "; else interim+=e.results[i][0].transcript; }
-  if(tempFinal) finalTranscript+=tempFinal; let display=finalTranscript+interim; lastOriginal=display;
-  let orig=document.getElementById('original'); orig.style.display='block'; orig.innerHTML='<b>🎤 ORIGINAL:</b>\n'+display+'\n\n👉 Maintenant clique "TRADUIRE SUR GOOGLE"';
-  document.getElementById('desc').value=display;
+  if(tempFinal) finalTranscript+=tempFinal; let display=finalTranscript+interim; lastVoice=display;
+  let orig=document.getElementById('voiceOriginal'); orig.style.display='block'; orig.innerHTML='<b>🎤 Tu as dit:</b>\n'+display;
  };
  recognition.onend=()=>{ if(isRecording){ try{recognition.start();}catch(e){} } };
  recognition.onerror=()=>{ if(isRecording) setTimeout(()=>{try{recognition.start();}catch(e){}},500); };
  try{recognition.start();}catch(e){}
 }
-function stopRecord(){ isRecording=false; document.getElementById('micBtn').classList.remove('rec'); document.getElementById('micBtn').textContent='🎤'; document.getElementById('status').textContent='✅ Voice terminé - Maintenant traduis!'; document.getElementById('status').style.color='#25D366'; clearInterval(timerInterval); if(mediaRecorder&&mediaRecorder.state!=='inactive') mediaRecorder.stop(); if(recognition) try{recognition.stop();}catch(e){} }
+function stopRecord(){ isRecording=false; document.getElementById('micBtn').classList.remove('rec'); document.getElementById('micBtn').textContent='🎤'; document.getElementById('status').textContent='✅ Voice terminé - Clique Traduire'; document.getElementById('status').style.color='#25D366'; clearInterval(timerInterval); if(mediaRecorder&&mediaRecorder.state!=='inactive') mediaRecorder.stop(); if(recognition) try{recognition.stop();}catch(e){} }
 
-// LA MÉTHODE QUI MARCHE À 100%
-function ouvrirGoogleTrad(){
- let text=document.getElementById('desc').value||lastOriginal;
- if(!text.trim()){ alert('Parle d\'abord, ton texte va apparaître'); return; }
- let from=document.getElementById('langFrom').value; if(from==='auto') from='auto';
- let url=`https://translate.google.com/?sl=${from}&tl=fr&text=${encodeURIComponent(text)}&op=translate`;
- window.open(url, '_blank');
- let div=document.getElementById('translated'); div.style.display='block';
- div.innerHTML=`<b>🌐 Google Translate ouvert!</b>\n\n1. Tu vois la traduction en français sur Google\n2. COPIE le texte français\n3. REVIENS ICI et COLLE le dans la case en dessous\n4. Clique ENVOYER À FREDDY\n\nOriginal:\n${text.substring(0,200)}...`;
+// TRADUCTION VOICE
+async function traduireVoice(){
+ if(!lastVoice){ alert('Parle d\'abord avec le micro'); return; }
+ let div=document.getElementById('voiceTrad'); div.style.display='block'; div.innerHTML='🌐 Traduction en cours...';
+ let trad=await traduireAutoAPI(lastVoice);
+ if(trad){ lastVoiceTrad=trad; div.innerHTML=`<b>✅ Voice traduit en FR:</b>\n${trad}`; document.getElementById('textFinal').value=trad; }
+ else{ div.innerHTML='❌ Auto échoué -> Clique "Ouvrir sur Google Trad"'; }
 }
 
-async function traduireAuto(){
- let text=document.getElementById('desc').value||lastOriginal;
- if(!text.trim()) return alert('Parle d\'abord');
- let div=document.getElementById('translated'); div.style.display='block'; div.innerHTML='🤖 Tentative trad auto...';
+// TRADUCTION TEXTE
+async function traduireTexte(){
+ let text=document.getElementById('textOriginal').value.trim();
+ if(!text){ alert('Écris d\'abord ton texte'); return; }
+ let div=document.getElementById('textTrad'); div.style.display='block'; div.innerHTML='🌐 Traduction texte...';
+ let trad=await traduireAutoAPI(text);
+ if(trad){ lastTextTrad=trad; div.innerHTML=`<b>✅ Texte traduit en FR:</b>\n${trad}`; document.getElementById('textFinal').value=trad; }
+ else{ div.innerHTML='❌ Auto échoué -> Clique Google Trad'; }
+}
+
+async function traduireAutoAPI(text){
+ let from=document.getElementById('langFrom').value; if(from==='auto') from='auto'; if(from.includes('-')) from=from.split('-')[0];
  try{
-  let url=`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=auto|fr`;
-  let r=await fetch(url); let d=await r.json(); let trad=d.responseData.translatedText;
-  if(trad){ lastTranslated=trad; div.innerHTML=`<b>✅ Auto Trad FR:</b>\n${trad}\n\nSi ce n'est pas bon, clique sur "TRADUIRE SUR GOOGLE"`; document.getElementById('desc').value=trad; }
-  else throw new Error();
- }catch(e){
-  div.innerHTML='❌ Trad auto échouée (normal pour mandarin).\n\n👉 Clique sur "TRADUIRE SUR GOOGLE" - ça marche à 100%';
-  ouvrirGoogleTrad();
- }
+  let url=`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text.substring(0,400))}&langpair=${from}|fr`;
+  let r=await fetch(url); let d=await r.json(); return d.responseData.translatedText;
+ }catch(e){ return null; }
+}
+
+function ouvrirGoogle(type){
+ let text = type==='voice' ? lastVoice : document.getElementById('textOriginal').value;
+ if(!text){ alert('Parle ou écris d\'abord'); return; }
+ let url=`https://translate.google.com/m?sl=auto&tl=fr&q=${encodeURIComponent(text.substring(0,3500))}`;
+ window.open(url, '_blank');
+ alert('Google Trad ouvert!\n\n1. Copie le texte FRANÇAIS en bas\n2. Reviens ici\n3. Colle dans la case verte en bas\n4. Envoie à Freddy');
 }
 
 function envoyerFreddy(){
  let nom=document.getElementById('nom').value||"Client"; let job=document.getElementById('job').value;
- let finalText=document.getElementById('desc').value;
- if(!finalText.trim()) return alert('Colle d\'abord la traduction française');
- let msg=`🎤 VOICE CLIENT (10min)\nNom: ${nom}\nMétier: ${job}\n\n🇫🇷 MESSAGE EN FRANÇAIS POUR FREDDY:\n${finalText}\n\n📝 TEXTE ORIGINAL:\n${lastOriginal}\n\nLien: https://makola000.github.io/freddy-Makola/diagnostic-client.html`;
+ let finalText=document.getElementById('textFinal').value.trim();
+ if(!finalText){ alert('Traduis d\'abord ton voice ou ton texte en français, le résultat doit être dans la case verte du bas'); return; }
+ let original = lastVoice || document.getElementById('textOriginal').value;
+ let msg=`Client: ${nom}\nMétier: ${job}\n\n🇫🇷 MESSAGE EN FRANÇAIS POUR FREDDY:\n${finalText}\n\n📝 ORIGINAL:\n${original}\n\nLien: makola000.github.io/freddy-Makola/diagnostic-client.html`;
  window.open('https://wa.me/243983356734?text='+encodeURIComponent(msg),'_blank');
 }
 </script></body></html>
