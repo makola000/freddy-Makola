@@ -1,140 +1,84 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Voice 10 Min - Freddy</title><style>body{margin:0;background:#0b141a;color:#fff;font-family:sans-serif;padding:12px} .card{background:#202c33;padding:16px;border-radius:15px;max-width:500px;margin:0 auto;border-top:4px solid #25D366} h1{color:#25D366;margin:0;text-align:center} button{width:100%;padding:15px;border-radius:12px;border:none;font-weight:bold;margin-top:8px;cursor:pointer} .voice{background:#111b21;padding:15px;border-radius:15px;margin:12px 0;border:2px solid #25D366;text-align:center} .mic{width:90px;height:90px;border-radius:50%;background:#25D366;border:4px solid #fff;color:#fff;font-size:40px} .mic.rec{background:#ff0000;animation:pulse 0.8s infinite} @keyframes pulse{0%{transform:scale(1);box-shadow:0 0 0 0 red}50%{transform:scale(1.2)}100%{transform:scale(1);box-shadow:0 0 0 20px transparent}} .timer{font-size:32px;color:#25D366;font-weight:bold;margin:10px 0} .bar{height:6px;background:#333;border-radius:3px;overflow:hidden;margin:8px 0} .fill{height:100%;background:#25D366;width:0%;transition:width 1s} .result{background:#1a3a4a;padding:10px;border-radius:8px;margin-top:8px;font-size:13px;max-height:250px;overflow:auto;display:none} input,select,textarea{width:100%;padding:12px;margin:6px 0;border-radius:10px;border:none;background:#2a3942;color:#fff;box-sizing:border-box}</style></head><body>
-<div class="card">
-<h1>🎤 VOICE 10 MIN - FREDDY</h1>
-<p style="text-align:center;color:#aaa;font-size:11px">Parle jusqu'à 10 minutes - Auto traduit en Français pour Freddy</p>
-<div style="display:flex;gap:5px"><select id="langFrom"><option value="zh-CN">🇨🇳 Mandarin</option><option value="en-US">🇺🇸 Anglais</option><option value="fr-FR">🇫🇷 Français</option><option value="sw">Swahili</option><option value="auto">🌍 Auto</option></select><select id="job"><option>⚡ Élec</option><option>🧱 Maçon</option><option>🔧 Méca</option><option>📱 Élec'nique</option></select></div>
-
-<div class="voice">
-<div class="timer" id="timer">00:00 / 10:00</div>
-<div class="bar"><div class="fill" id="fill"></div></div>
-<p id="status" style="font-size:12px">Appuie pour démarrer - 10 minutes max</p>
-<button class="mic" id="micBtn" onclick="toggleRecord()">🎤</button>
-<p id="words" style="font-size:11px;color:#888"></p>
-<audio id="player" controls style="display:none;width:100%;margin-top:10px"></audio>
-<div id="original" class="result"></div>
-<div id="translated" class="result" style="background:#005c4b"></div>
-</div>
-
-<input id="nom" placeholder="Ton nom">
-<textarea id="desc" rows="4" placeholder="Transcription et traduction apparaîtront ici..."></textarea>
-<button style="background:#ff9800" onclick="traduireMaintenant()">🌐 Retraduire en Français</button>
-<button style="background:#25D366;font-size:16px" onclick="envoyerFreddy()">📲 ENVOYER 10 MIN À FREDDY (FR)</button>
-<p style="font-size:10px;color:#666;text-align:center">10 min = 600 sec. Si le client parle mandarin, tu reçois tout en français + audio original joint.</p>
-</div>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Voice 10 Min Trad Fix - Freddy</title><style>body{margin:0;background:#0b141a;color:#fff;font-family:sans-serif;padding:12px} .card{background:#202c33;padding:16px;border-radius:15px;max-width:500px;margin:0 auto;border-top:4px solid #25D366} h1{color:#25D366;text-align:center;margin:0} button{width:100%;padding:15px;border-radius:12px;border:none;font-weight:bold;margin-top:8px;cursor:pointer} .voice{background:#111b21;padding:15px;border-radius:15px;margin:12px 0;border:2px solid #25D366;text-align:center} .mic{width:90px;height:90px;border-radius:50%;background:#25D366;border:4px solid #fff;color:#fff;font-size:40px} .mic.rec{background:#ff0000;animation:pulse 0.8s infinite} @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.2)}100%{transform:scale(1)}} .timer{font-size:32px;color:#25D366;font-weight:bold} .bar{height:6px;background:#333;border-radius:3px;overflow:hidden;margin:8px 0} .fill{height:100%;background:#25D366;width:0%} .result{background:#1a3a4a;padding:12px;border-radius:8px;margin-top:8px;font-size:14px;max-height:300px;overflow:auto;display:none;white-space:pre-wrap} input,select,textarea{width:100%;padding:12px;margin:6px 0;border-radius:10px;border:none;background:#2a3942;color:#fff;box-sizing:border-box}</style></head><body>
+<div class="card"><h1>🎤 VOICE 10 MIN - TRAD FIX</h1>
+<div style="display:flex;gap:5px"><select id="langFrom"><option value="auto">🌍 Auto-détecter (recommandé)</option><option value="zh-CN">🇨🇳 Mandarin</option><option value="en">🇺🇸 Anglais</option><option value="sw">Swahili</option><option value="fr">Français</option><option value="ln">Lingala</option></select><select id="job"><option>⚡ Élec</option><option>🧱 Maçon</option><option>🔧 Méca</option><option>📱 Élec'nique</option></select></div>
+<div class="voice"><div class="timer" id="timer">00:00 / 10:00</div><div class="bar"><div class="fill" id="fill"></div></div><p id="status" style="font-size:12px">Appuie pour parler 10 min - Trad auto FR</p><button class="mic" id="micBtn" onclick="toggleRecord()">🎤</button><div id="original" class="result"></div><div id="translated" class="result" style="background:#005c4b;border-left:4px solid #25D366"></div></div>
+<input id="nom" placeholder="Ton nom"><textarea id="desc" rows="4" placeholder="Ici apparaît français..."></textarea>
+<button style="background:#ff9800" onclick="traduireMaintenant()">🌐 TRADUIRE EN FRANÇAIS MAINTENANT</button>
+<button style="background:#25D366;font-size:16px" onclick="envoyerFreddy()">📲 ENVOYER À FREDDY EN FR</button>
+<p style="font-size:10px;color:#888;text-align:center">TEST: Dis "你好我的插座坏了" -> Doit devenir "Bonjour ma prise est cassée"</p></div>
 <script>
-let mediaRecorder, audioChunks=[], isRecording=false, startTime, timerInterval, recognition, finalTranscript="", lastOriginal="", lastTranslated="", audioBlob=null;
+let isRecording=false, mediaRecorder, audioChunks=[], timerInterval, recognition, finalTranscript="", lastOriginal="", lastTranslated="", startTime;
 
 async function toggleRecord(){
  let btn=document.getElementById('micBtn');
  if(isRecording){ stopRecord(); return; }
- 
  try{
-  let stream = await navigator.mediaDevices.getUserMedia({audio:true});
+  let stream=await navigator.mediaDevices.getUserMedia({audio:true});
   audioChunks=[]; finalTranscript=""; startTime=Date.now(); isRecording=true; btn.classList.add('rec'); btn.textContent='⏹️';
-  document.getElementById('status').textContent='🔴 ENREGISTREMENT 10 MIN EN COURS... Parle!';
-  document.getElementById('status').style.color='red';
-  document.getElementById('player').style.display='none';
-  
-  // MediaRecorder pour 10 min
-  mediaRecorder = new MediaRecorder(stream, {mimeType:'audio/webm'});
-  mediaRecorder.ondataavailable = e=>{ if(e.data.size>0) audioChunks.push(e.data); };
-  mediaRecorder.onstop = ()=>{
-   audioBlob = new Blob(audioChunks, {type:'audio/webm'});
-   let url = URL.createObjectURL(audioBlob);
-   let player = document.getElementById('player');
-   player.src=url; player.style.display='block';
-   stream.getTracks().forEach(t=>t.stop());
-  };
-  mediaRecorder.start(1000);
-  
-  // Speech Recognition continu qui se relance tout seul
+  document.getElementById('status').textContent='🔴 Enregistrement... Parle!'; document.getElementById('status').style.color='red';
+  mediaRecorder=new MediaRecorder(stream); mediaRecorder.ondataavailable=e=>{if(e.data.size>0) audioChunks.push(e.data)}; mediaRecorder.start(1000);
   startSpeechRecognition();
-  
-  // Timer 10 min
-  timerInterval = setInterval(()=>{
-   let elapsed = Math.floor((Date.now()-startTime)/1000);
-   let remain = 600 - elapsed;
-   if(remain<=0){ stopRecord(); return; }
-   let m=Math.floor(elapsed/60), s=elapsed%60;
-   document.getElementById('timer').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')} / 10:00`;
-   document.getElementById('fill').style.width=(elapsed/600*100)+'%';
-   document.getElementById('words').textContent=finalTranscript.split(' ').length+' mots - '+(600-elapsed)+' sec restantes';
-  },1000);
-  
-  // Auto stop à 10 min
-  setTimeout(()=>{ if(isRecording) stopRecord(); }, 600000);
-  
- }catch(e){ alert('Micro refusé: '+e.message); }
+  timerInterval=setInterval(()=>{ let el=Math.floor((Date.now()-startTime)/1000); if(el>=600){stopRecord();return;} let m=Math.floor(el/60),s=el%60; document.getElementById('timer').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')} / 10:00`; document.getElementById('fill').style.width=(el/600*100)+'%'; },1000);
+  setTimeout(()=>{if(isRecording) stopRecord();},600000);
+ }catch(e){alert('Micro refusé');}
 }
-
 function startSpeechRecognition(){
  if(!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) return;
- let SR=window.SpeechRecognition||window.webkitSpeechRecognition;
- recognition=new SR();
- recognition.lang=document.getElementById('langFrom').value==='auto'?'':document.getElementById('langFrom').value;
- recognition.continuous=true; recognition.interimResults=true;
+ let SR=window.SpeechRecognition||window.webkitSpeechRecognition; recognition=new SR();
+ let lang=document.getElementById('langFrom').value; recognition.lang=lang==='auto'?'':lang; recognition.continuous=true; recognition.interimResults=true;
  recognition.onresult=(e)=>{
-  let interim=""; let tempFinal="";
-  for(let i=e.resultIndex;i<e.results.length;i++){
-   if(e.results[i].isFinal) tempFinal+=e.results[i][0].transcript+" ";
-   else interim+=e.results[i][0].transcript;
-  }
-  if(tempFinal) finalTranscript+=tempFinal;
-  let display=finalTranscript+interim;
-  lastOriginal=display;
-  document.getElementById('original').style.display='block';
-  document.getElementById('original').innerHTML='<b>🎤 Voice ('+Math.floor(display.length/5)+' mots):</b><br>'+display;
+  let interim="", tempFinal=""; for(let i=e.resultIndex;i<e.results.length;i++){ if(e.results[i].isFinal) tempFinal+=e.results[i][0].transcript+" "; else interim+=e.results[i][0].transcript; }
+  if(tempFinal) finalTranscript+=tempFinal; let display=finalTranscript+interim; lastOriginal=display;
+  let orig=document.getElementById('original'); orig.style.display='block'; orig.innerHTML='<b>🎤 Original ('+display.length+' car):</b>\n'+display;
   document.getElementById('desc').value=display;
-  if(display.length>20){ clearTimeout(window.autoTrad); window.autoTrad=setTimeout(()=>traduireMaintenant(),2500); }
+  if(display.length>5){ clearTimeout(window.autoTrad); window.autoTrad=setTimeout(()=>traduireMaintenant(),1500); }
  };
- recognition.onend=()=>{ if(isRecording){ try{ recognition.start(); }catch(e){} } };
- recognition.onerror=()=>{ if(isRecording){ setTimeout(()=>{ try{ recognition.start(); }catch(e){} },500); } };
- try{ recognition.start(); }catch(e){}
+ recognition.onend=()=>{ if(isRecording){ try{recognition.start();}catch(e){} } };
+ recognition.onerror=()=>{ if(isRecording) setTimeout(()=>{try{recognition.start();}catch(e){}},500); };
+ try{recognition.start();}catch(e){}
 }
+function stopRecord(){ isRecording=false; document.getElementById('micBtn').classList.remove('rec'); document.getElementById('micBtn').textContent='🎤'; document.getElementById('status').textContent='✅ Terminé'; document.getElementById('status').style.color='#25D366'; clearInterval(timerInterval); if(mediaRecorder&&mediaRecorder.state!=='inactive') mediaRecorder.stop(); if(recognition) try{recognition.stop();}catch(e){} if(finalTranscript) traduireMaintenant(); }
 
-function stopRecord(){
- isRecording=false;
- document.getElementById('micBtn').classList.remove('rec');
- document.getElementById('micBtn').textContent='🎤';
- document.getElementById('status').textContent='✅ Voice 10 min terminé - Traduction...';
- document.getElementById('status').style.color='#25D366';
- clearInterval(timerInterval);
- if(mediaRecorder && mediaRecorder.state!=='inactive') mediaRecorder.stop();
- if(recognition) try{ recognition.stop(); }catch(e){}
- if(finalTranscript) traduireMaintenant();
+// NOUVELLE FONCTION TRADUCTION QUI MARCHE POUR TOUTES LANGUES
+async function traduireGoogle(text, from='auto', to='fr'){
+ try{
+  // Méthode 1: Google free API (marche pour mandarin, swahili, etc)
+  let url=`https://translate.googleapis.com/translate_a/single?client=gtx&sl=${from}&tl=${to}&dt=t&q=${encodeURIComponent(text)}`;
+  let res=await fetch(url);
+  let data=await res.json();
+  let trad=data[0].map(s=>s[0]).join('');
+  return trad;
+ }catch(e){ return null; }
 }
 
 async function traduireMaintenant(){
  let text=document.getElementById('desc').value||lastOriginal;
- if(!text.trim()) return;
+ if(!text.trim()){ alert('Parle d\'abord'); return; }
  lastOriginal=text;
- let from=document.getElementById('langFrom').value.split('-')[0]; if(from=='auto') from='en';
- let div=document.getElementById('translated'); div.style.display='block'; div.innerHTML='🌐 Traduction en français (10 min)...';
- try{
-  // Découpe en morceaux de 500 caractères pour traduire long texte
-  let chunks=text.match(/.{1,450}/g)||[text];
-  let trads=[];
-  for(let c of chunks){
-   let url=`https://api.mymemory.translated.net/get?q=${encodeURIComponent(c)}&langpair=${from}|fr`;
-   let r=await fetch(url); let d=await r.json(); trads.push(d.responseData.translatedText);
-   await new Promise(r=>setTimeout(r,500));
+ let from=document.getElementById('langFrom').value; if(from==='auto') from='auto'; if(from.includes('-')) from=from.split('-')[0];
+ let div=document.getElementById('translated'); div.style.display='block'; div.innerHTML='🌐 Traduction Google en cours... (Mandarin->FR)';
+ 
+ let trad=await traduireGoogle(text, from, 'fr');
+ if(trad && trad.toLowerCase()!==text.toLowerCase()){
+  lastTranslated=trad; div.innerHTML=`<b>✅ TRADUIT EN FRANÇAIS:</b>\n<span style="font-size:16px;font-weight:bold">${trad}</span>\n\n---\nOriginal: ${text}`;
+  document.getElementById('desc').value=trad;
+ }else{
+  // Fallback MyMemory
+  try{
+   let url2=`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${from}|fr`;
+   let r=await fetch(url2); let d=await r.json(); trad=d.responseData.translatedText;
+   lastTranslated=trad; div.innerHTML=`<b>✅ Traduit (fallback):</b>\n${trad}`; document.getElementById('desc').value=trad;
+  }catch(e){
+   div.innerHTML=`⚠️ Traduction bloquée par navigateur.\n\nSolution: Copie ton texte et ouvre translate.google.com\n\nTexte original:\n${text}\n\nMais on envoie quand même à Freddy, il traduira de son côté.`;
+   lastTranslated=text;
   }
-  lastTranslated=trads.join(' ');
-  div.innerHTML=`<b>✅ Pour Freddy (FR - ${text.length} car):</b><br><span style="font-size:15px">${lastTranslated}</span><br><br><small>Original: ${text.substring(0,100)}...</small>`;
-  document.getElementById('desc').value=lastTranslated;
- }catch(e){
-  div.innerHTML='⚠️ Erreur trad, mais on envoie quand même';
-  lastTranslated=text;
  }
 }
 
 function envoyerFreddy(){
- let nom=document.getElementById('nom').value||"Client Voice 10min";
- let job=document.getElementById('job').value;
- let finalText=lastTranslated||document.getElementById('desc').value;
- if(!finalText) return alert('Parle d\'abord 10 min');
- let msg=`🎤 VOICE 10 MINUTES de ${nom}\nMétier: ${job}\nDurée: ${document.getElementById('timer').textContent}\n\n🇫🇷 TRADUIT POUR FREDDY:\n${finalText}\n\n📝 ORIGINAL (${document.getElementById('langFrom').value}):\n${lastOriginal.substring(0,1000)}\n\n🔊 Audio de 10 min enregistré - Le client doit aussi envoyer l'audio via trombone WhatsApp après ce message.`;
+ let nom=document.getElementById('nom').value||"Client"; let job=document.getElementById('job').value;
+ let finalText=lastTranslated||document.getElementById('desc').value; if(!finalText) return alert('Parle d\'abord');
+ let msg=`🎤 VOICE CLIENT 10MIN\nNom: ${nom}\nMétier: ${job}\n\n🇫🇷 FRANÇAIS POUR FREDDY:\n${finalText}\n\n📝 ORIGINAL (${document.getElementById('langFrom').value}):\n${lastOriginal}`;
  window.open('https://wa.me/243983356734?text='+encodeURIComponent(msg),'_blank');
- setTimeout(()=>{ alert("✅ Message texte envoyé!\n\nMAINTENANT IMPORTANT:\n1. WhatsApp s'ouvre\n2. Envoie ce texte\n3. Après, clique sur 📎 > Audio > Choisis l'audio que tu viens d'enregistrer\n\nComme ça Freddy reçoit texte FR + ta voice de 10 min."); },1000);
 }
 </script></body></html>
